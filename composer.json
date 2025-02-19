@@ -1,0 +1,19 @@
+{
+    "name": "vulcanphp/backpack",
+    "description": "Backend Kit for Hyper Framework to Build a Panel, CRUD, FORMS, AUTH, and more",
+    "license": "MIT",
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Backpack\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Shahin Moyshan",
+            "email": "shahin.moyshan2@gmail.com"
+        }
+    ]
+}
