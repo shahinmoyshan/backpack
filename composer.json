@@ -8,7 +8,10 @@
     "autoload": {
         "psr-4": {
             "Backpack\\": "src/"
-        }
+        },
+        "files": [
+            "./src/functions.php"
+        ]
     },
     "authors": [
         {
