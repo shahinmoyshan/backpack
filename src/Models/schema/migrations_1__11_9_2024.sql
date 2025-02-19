@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS posts (
     id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     slug VARCHAR(255) UNIQUE NOT NULL,
-    thumbnail VARCHAR(255),
+    thumbnail TEXT,
     content TEXT,
     status ENUM('published', 'draft') DEFAULT 'draft',
     post_type ENUM('page', 'blog', 'custom') DEFAULT 'page',

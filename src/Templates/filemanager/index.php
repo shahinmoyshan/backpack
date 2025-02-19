@@ -2,7 +2,8 @@
 
 // set layout, title, and breadcrumb
 $template->layout('master')
-    ->set('title', 'filemanager');
+    ->set('title', 'filemanager')
+    ->set('breadcrumb', ['__active' => 'filemanager']);
 
 $byteConverter = function ($bytes) {
     $K_UNIT = 1024; // Kilobyte unit
