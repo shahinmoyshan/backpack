@@ -312,7 +312,7 @@ class Bread
         };
 
         // Override the default partial with the one specified in the config
-        $partial = $this->config['partials'][$partial] ?? __DIR__ . "/templates/bread/{$partial}";
+        $partial = $this->config['partials'][$partial] ?? __DIR__ . "/Templates/bread/{$partial}";
 
         // Pass the bread instance to the partial as a variable
         return $this->partial($partial, ['bread' => $this]);
