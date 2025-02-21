@@ -61,7 +61,7 @@
     <script>
         function installer() {
             return {
-                step: this.$persist(1).as('saleo_installer_step'),
+                step: this.$persist(1).as('saleo_installer_step').using(sessionStorage),
                 error: null,
                 loading: false,
                 init() {
