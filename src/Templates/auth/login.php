@@ -5,7 +5,7 @@ $template->layout('auth/layout')
 
 ?>
 <!-- Shop Icon or Logo -->
-<a href="<?= _e(url('/')) ?>" class="flex justify-center mx-auto bg-accent-700 px-6 py-4">
+<a href="<?= _e(url('/')) ?>" native class="flex justify-center mx-auto bg-accent-700 px-6 py-4">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
         class="size-12 text-white">
         <path stroke-linecap="round" stroke-linejoin="round"

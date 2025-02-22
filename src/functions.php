@@ -146,7 +146,7 @@ function backpack_template(string $template, array $context = []): Response
  */
 function backpack_templates_dir(string $suffix = ''): string
 {
-    return __DIR__ . '/Templates/' . $suffix;
+    return dir_path(__DIR__ . '/Templates/' . $suffix);
 }
 
 /**
@@ -488,6 +488,12 @@ function extract_image_sizes(string|array $images): array
 {
     $_images = [];
 
+    // check if the images is json encoded
+    if (is_string($images)) {
+        $encoded = json_decode($images, true);
+        $images = json_last_error() === JSON_ERROR_NONE ? $encoded : [$images];
+    }
+
     foreach ($images as $key => $image) {
         // The pattern matches any string that ends with ".ext" and
         // contains "XxY" where X and Y are digits.
@@ -513,14 +519,14 @@ function extract_image_sizes(string|array $images): array
  * It returns the first image that matches one of the sizes. If no image is
  * found, it returns the first image in the array.
  *
- * @param array $images The array of images.
+ * @param string|array $images The array of image paths.
  * @param array|string $sizes The list of desired image sizes.
  * @param bool $single Whether to return only the first matching image.
  * @param bool $strick Whether to return null if no matching image is found.
  *
  * @return mixed The path to the matching image, or null if no image is found.
  */
-function find_a_image_size(array $images, array|string $sizes, bool $single = true, bool $strick = false): mixed
+function find_a_image_size(string|array $images, array|string $sizes, bool $single = true, bool $strick = false): mixed
 {
     $images = extract_image_sizes($images);
     $image = null;
@@ -625,7 +631,7 @@ function get_json_config(string $config_path): array
  */
 function backpack_root_dir(string $path = ''): string
 {
-    return __DIR__ . '/' . trim($path, '/');
+    return dir_path(__DIR__ . '/' . trim($path, '/'));
 }
 
 /**

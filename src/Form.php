@@ -921,7 +921,7 @@ class Form
 
         // Render the form component
         ob_start();
-        include __DIR__ . '/Templates/form/' . $type . '.php';
+        include dir_path(__DIR__ . '/Templates/form/' . $type . '.php');
         return ob_get_clean();
     }
 }

@@ -350,7 +350,7 @@ class Bread
         ob_start();
 
         // Include the specified partial PHP file
-        include str_replace('.php', '', $path) . '.php';
+        include dir_path(str_replace('.php', '', $path) . '.php');
 
         // Get the contents of the buffer and clean it
         return ob_get_clean();

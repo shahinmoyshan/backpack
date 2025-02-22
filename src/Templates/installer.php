@@ -52,7 +52,7 @@
                         <?= _e($step['description']) ?>
                     </p>
                     <div class="mt-6">
-                        <?php include $step['template'] ?>
+                        <?php include dir_path($step['template']) ?>
                     </div>
                 </div>
             </template>
