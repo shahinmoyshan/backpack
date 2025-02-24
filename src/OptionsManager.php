@@ -300,9 +300,13 @@ class OptionsManager
             if ($status) {
                 // clear cache
                 if ($this->getConfig('cms', false)) {
-                    cache('cms')->erase($this->id);
+                    cache('cms')
+                        ->reload()
+                        ->erase($this->id);
                 } else {
-                    cache()->erase('options:preload');
+                    cache()
+                        ->reload()
+                        ->erase('options:preload');
                 }
 
                 // reload settings from database
