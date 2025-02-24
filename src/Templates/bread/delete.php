@@ -87,7 +87,7 @@ if (!empty($objects)):
                                                 <?php if (!empty($ufs = array_filter((array) $relObj->{$u['name']}))): ?>
                                                     <ul class="pl-6 list-disc mb-1">
                                                         <?php foreach ($ufs as $f):
-                                                            if (!file_exists(env('upload_dir') . $f)) {
+                                                            if (!file_exists(upload_dir($f))) {
                                                                 continue;
                                                             } ?>
                                                             <li class="mb-1">
@@ -115,7 +115,7 @@ if (!empty($objects)):
                             <?php if (!empty($ufs = array_filter((array) $object->{$u['name']}))): ?>
                                 <ul class="pl-6 list-disc mb-1">
                                     <?php foreach ($ufs as $f):
-                                        if (!file_exists(env('upload_dir') . $f)) {
+                                        if (!file_exists(upload_dir($f))) {
                                             continue;
                                         } ?>
                                         <li class="mb-1">

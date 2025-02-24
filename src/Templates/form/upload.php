@@ -104,7 +104,7 @@ $random_id = 'upload-' . uniqid();
                     <?php
                     // if file does not have meta data, then generate meta data as array
                     $is_private = strpos($file, 'private') === 1;
-                    $file_path = dir_path(($is_private ? env('storage_dir') : env('upload_dir')) . '/' . $file);
+                    $file_path = $is_private ? storage_dir($file) : upload_dir($file);
                     if (file_exists($file_path)) {
                         $file = [
                             'name' => basename($file),

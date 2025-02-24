@@ -43,7 +43,7 @@ class ManageFileManager
         $this->setCurrentFolder('/filemanager' . $request->getRouteParam(0, '/'));
 
         // Set the upload directory from the environment variable
-        $this->setUploadDir(env('upload_dir'));
+        $this->setUploadDir(upload_dir());
 
         // If the request is a POST, handle the request
         if ($request->getMethod() === 'POST') {
