@@ -23,25 +23,42 @@ $template->layout('auth/layout')
     <!-- Forget Password Form -->
     <div class="px-6 py-4">
         <!-- Form Title -->
-        <h3 class="mt-3 text-xl font-medium text-center text-primary-600"><?= _e(__('reset password')) ?></h3>
+        <h3 class="mt-3 mb-1 text-xl font-semibold text-center text-primary-600"><?= _e(__('reset password')) ?></h3>
+        <p class="text-center text-xs text-primary-600">
+            <?= __e('Enter your new password below to reset your password.') ?>
+        </p>
         <form action="<?= _e(route_url('admin.auth.reset')) ?>" method="POST">
             <!-- CSRF Token -->
             <?= csrf() ?>
 
             <!-- New Password Input -->
-            <div class="w-full mt-4">
+            <label class="block w-full mt-6 relative">
+                <span class="absolute top-1/2 left-3 -translate-y-1/2 text-primary-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                    </svg>
+                </span>
                 <input
-                    class="block text-center w-full px-4 py-2 mt-2 text-primary-700 placeholder-primary-500 focus:border-accent-300 bg-white border border-primary-300 rounded-lg focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300"
+                    class="block w-full px-10 py-2.5 mt-2 text-[0.9375rem] text-primary-700 placeholder-primary-500 bg-white border border-primary-300 rounded-md focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300"
                     type="password" name="password" placeholder="<?= _e(__('new password')) ?>" aria-label="New Password" />
-            </div>
+            </label>
 
             <!-- Confirm Password Input -->
-            <div class="w-full mt-4">
+            <label class="block w-full mt-4 relative">
+                <span class="absolute top-1/2 left-3 -translate-y-1/2 text-primary-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M15.75 5.25a3 3 0 0 1 3 3m3 0a6 6 0 0 1-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1 1 21.75 8.25Z" />
+                    </svg>
+                </span>
                 <input
-                    class="block text-center w-full px-4 py-2 mt-2 text-primary-700 placeholder-primary-500 focus:border-accent-300 bg-white border border-primary-300 rounded-lg focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300"
+                    class="block w-full px-10 py-2.5 mt-2 text-[0.9375rem] text-primary-700 placeholder-primary-500 bg-white border border-primary-300 rounded-md focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300"
                     type="password" name="confirm_password" placeholder="<?= _e(__('confirm password')) ?>"
                     aria-label="Confirm Password" />
-            </div>
+            </label>
 
             <!-- Hidden Token -->
             <input type="hidden" name="token" value="<?= _e($token->token) ?>">
@@ -49,7 +66,7 @@ $template->layout('auth/layout')
             <!-- Set Password Button -->
             <div class="mt-6">
                 <button
-                    class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary-800 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-50">
+                    class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary-800 rounded-md hover:bg-primary-700 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-50">
                     <?= _e(__('set password')) ?>
                 </button>
             </div>

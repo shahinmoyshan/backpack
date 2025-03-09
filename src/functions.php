@@ -70,7 +70,7 @@ function apply_permissions(string|array $permissions, string $type = 'one'): voi
         $translations = [
             'heading' => __('Permission Denied'),
             'description' => __('__permission_denied_msg'),
-            'back_to_admin' => __('Go to Admin')
+            'back_to_admin' => __('Go to Dashboard')
         ];
         (new Response(
             <<<HTML
@@ -80,15 +80,22 @@ function apply_permissions(string|array $permissions, string $type = 'one'): voi
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title>Permission Denied</title>
+                    <style>
+                        body {display: flex;justify-content: center;align-items: center;height: 100vh;margin: 0;background: linear-gradient(to right, #1e1e1e, #2c2c2c);font-family: ui-sans-serif, system-ui, sans-serif;color: white;text-align: center;}
+                        .container {background: #333;padding: 30px;border-radius: 12px;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);max-width: 400px;}
+                        h1 {font-size: 64px;margin: 0;color: #e63946;}
+                        h2 {font-size: 24px;margin-top: 10px;}
+                        p {font-size: 16px;color: #ccc;}
+                        a {display: inline-block;margin-top: 20px;padding: 10px 20px;background-color: #e63946;color: white;text-decoration: none;border-radius: 5px;transition: background 0.3s ease;}
+                        a:hover {background-color: #d62839;}
+                    </style>
                 </head>
-                <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8d7da; color: #721c24; display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center;">
-                    <div>
-                        <h1 style="font-size: 48px; margin: 0;">403</h1>
-                        <h2 style="margin: 10px 0; font-size: 24px;">{$translations['heading']}</h2>
-                        <p style="font-size: 16px; color: #856404; max-width: 400px; margin: 0 auto;">{$translations['description']}</p>
-                        <a href="/admin" style="display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: #f5c6cb; color: #721c24; text-decoration: none; border-radius: 5px; border: 1px solid #f5c6cb;">
-                            &larr;&nbsp;{$translations['back_to_admin']}
-                        </a>
+                <body>
+                    <div class="container">
+                        <h1>403</h1>
+                        <h2>{$translations['heading']}</h2>
+                        <p>{$translations['description']}</p>
+                        <a href="/admin">{$translations['back_to_admin']}</a>
                     </div>
                 </body>
                 </html>

@@ -20,6 +20,16 @@ if (!isset($field['id'])) {
 $field = array_merge(['multiple' => false, 'value' => null, 'options' => []], $field);
 
 $x_fieldName = 'selectedOptions_' . uniqid();
+$close_individual = isset($field['attrs']['close_individual']) && $field['attrs']['close_individual'] && $field['multiple'] ? true : false;
+$clear_all = isset($field['attrs']['clear']) && $field['attrs']['clear'];
+$allow_html = isset($field['attrs']['allow_html']) && $field['attrs']['allow_html'] ? true : false;
+$list_wrap = isset($field['attrs']['list_wrap']) && $field['attrs']['list_wrap'] ? true : false;
+
+if($close_individual){
+    $allow_html = true;
+    $list_wrap = true;
+    $clear_all = false;
+}
 
 ?>
 
@@ -38,7 +48,7 @@ $x_fieldName = 'selectedOptions_' . uniqid();
             // join the selected options with a comma
             <?php if ($field['multiple']): ?>
                 // get the labels of the selected options
-                const labels = this.<?= $x_fieldName ?>.map((option) => {
+                const labels = this.<?= $x_fieldName ?>.map((option, key) => {
                     <?php if (isset($field['attrs']['ajax_url'])): ?>
                         // if the option is in the dynamicOptions object, use its label
                         if (this.dynamicOptions.hasOwnProperty(option)) {
@@ -48,9 +58,13 @@ $x_fieldName = 'selectedOptions_' . uniqid();
                     // otherwise, get the label from the DOM
                     const label = $el.querySelector(`label[id=combobox_<?= _e($field['id']) ?>_option_${sanitizeSelector(option)}]`);
                     // if the label exists, return its text, otherwise return the option value as label
-                    return label ? label.innerText.trim() : option;
-                })
-                return labels.join(', ');
+                    <?php if($close_individual):?>
+                        return `<span class='px-2 py-1 rounded-sm bg-primary-200/65 text-xs flex items-center gap-1 group'>${label ? label.innerText.trim() : option}<span class='opacity-45 group-hover:opacity-100 inline-block w-4 h-4 text-center hover:bg-red-600 hover:text-red-50 text-red-600 bg-red-50 rounded-full' x-on\:click.stop='<?= $x_fieldName ?>.splice(${key}, 1);'>&cross;</span></span>`;
+                    <?php else:?>
+                        return label ? label.innerText.trim() : option;
+                    <?php endif?>
+                });
+                return <?= $close_individual ? "labels.join('');" : "labels.join(', ');"?>
             <?php else: ?>
                 <?php if(isset($field['attrs']['ajax_url'])):?>
                     const dynamic_label = this.dynamicOptions[this.<?= $x_fieldName ?>] || false;
@@ -171,14 +185,14 @@ $x_fieldName = 'selectedOptions_' . uniqid();
     <div class="relative">
 
         <!-- trigger button  -->
-        <button type="button" role="combobox" class="inline-flex w-full items-center {inputClass}"
+        <button type="button" role="combobox" class="inline-flex w-full items-center h-max {inputClass}"
             aria-haspopup="listbox" aria-controls="<?= _e($field['id']) ?>" x-on:click="isOpen = ! isOpen"
             x-on:keydown.down.prevent="openedWithKeyboard = true" x-on:keydown.enter.prevent="openedWithKeyboard = true"
-            x-on:keydown.space.prevent="openedWithKeyboard = true" :aria-label="setLabelText()"
+            x-on:keydown.space.prevent="openedWithKeyboard = true"
             :aria-expanded="isOpen || openedWithKeyboard">
-            <span class="w-full font-normal text-start text-ellipsis whitespace-nowrap overflow-hidden"
-                x-text="setLabelText()"></span>
-            <?php if (isset($field['attrs']['clear']) && $field['attrs']['clear']): ?>
+            <span class="<?= $close_individual ? 'flex flex-wrap items-start gap-1' : 'block'?> w-full font-normal text-start <?= _e($list_wrap === false ? 'text-ellipsis whitespace-nowrap overflow-hidden' : '')?>"
+                <?= $allow_html ? 'x-html="setLabelText()"' : 'x-text="setLabelText()"'?>></span>
+            <?php if ($clear_all): ?>
                 <!-- Clear Button -->
                 <span x-cloak x-show="<?= $x_fieldName ?>.length > 0" class="text-primary-600 hover:text-primary-900 transition"
                     x-on:click.stop="<?= $x_fieldName ?>=<?= _e($field['multiple'] ? '[]' : '\'\'') ?>">
@@ -188,14 +202,16 @@ $x_fieldName = 'selectedOptions_' . uniqid();
                     </svg>
                 </span>
             <?php endif ?>
-            <!-- Chevron  -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                class="size-6 text-primary-600 transform transition"
-                :class="isOpen || openedWithKeyboard ? 'rotate-180' : ''">
-                <path fill-rule="evenodd"
-                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
-                    s clip-rule="evenodd" />
-            </svg>
+            <?php if(!$close_individual):?>
+                <!-- Chevron  -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                    class="size-6 text-primary-600 transform transition"
+                    :class="isOpen || openedWithKeyboard ? 'rotate-180' : ''">
+                    <path fill-rule="evenodd"
+                        d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                        s clip-rule="evenodd" />
+                </svg>
+            <?php endif?>
         </button>
 
         <!-- hidden input to grab the selected value  -->
@@ -203,7 +219,7 @@ $x_fieldName = 'selectedOptions_' . uniqid();
 
         <!-- combobox modal -->
         <div x-cloak x-show="isOpen || openedWithKeyboard"
-            class="absolute z-10 left-0 top-11 w-full border rounded-lg border-primary-300 bg-white shadow" role="listbox"
+            class="absolute z-10 left-0 top-auto w-full border rounded-lg border-primary-300 bg-white shadow" role="listbox"
             x-on:click.outside="isOpen = false, openedWithKeyboard = false" x-on:keydown.down.prevent="$focus.wrap().next()"
             x-on:keydown.up.prevent="$focus.wrap().previous()" x-transition x-trap="openedWithKeyboard">
 
@@ -245,7 +261,7 @@ $x_fieldName = 'selectedOptions_' . uniqid();
                                             type="<?= _e($field['multiple'] ? 'checkbox' : 'radio') ?>" :value="value"
                                             x-model="<?= $x_fieldName ?>" x-on:keydown.enter.prevent="$el.click()" />
                                     </div>
-                                    <span x-text="label"></span>
+                                    <span <?= $allow_html ? 'x-html="label"' : 'x-text="label"'?>></span>
                                 </label>
                             </li>
                         </template>
@@ -261,13 +277,15 @@ $x_fieldName = 'selectedOptions_' . uniqid();
                                             value="<?= _e($value) ?>" x-model="<?= $x_fieldName ?>"
                                             x-on:keydown.enter.prevent="$el.click()" />
                                     </div>
-                                    <span><?= _e($label) ?></span>
+                                    <span><?= $allow_html ? $label : _e($label) ?></span>
                                 </label>
                             </li>
                         <?php endforeach ?>
                     <?php endif ?>
                 </ul>
-                <?php if (isset($field['attrs']['searchable']) && $field['attrs']['searchable']): ?>
+                <?php if (isset($field['attrs']['searchable']) && $field['attrs']['searchable']): 
+                    $search_text = $field['attrs']['search_text'] ?? __('start typing to search...');
+                    ?>
                     <!-- combobox messages -->
                     <p x-cloak x-show="notFound" class="px-4 py-2 text-sm text-primary-700">
                         <?php if (isset($field['attrs']['ajax_url'])): ?>
@@ -275,7 +293,7 @@ $x_fieldName = 'selectedOptions_' . uniqid();
                             <span x-cloak x-show="!isSearching && searchKeyword"
                                 x-text="'<?= _e(__('no matches for: #')) ?>'.replace('#', searchKeyword)"></span>
                             <span x-cloak
-                                x-show="!isSearching && !searchKeyword"><?= _e(__('start typing to search...')) ?></span>
+                                x-show="!isSearching && !searchKeyword"><?= _e($search_text) ?></span>
                         <?php else: ?>
                             <span><?= _e(__('no matches found')) ?></span>
                         <?php endif ?>

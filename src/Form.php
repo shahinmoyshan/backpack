@@ -39,11 +39,11 @@ class Form
     /**
      * Form constructor.
      * 
-     * @param Request $request The request instance for this form. This is used
+     * @param ?Request $request The request instance for this form. This is used
      *                         to access input data and other request-specific
      *                         information.
      */
-    public function __construct(private Request $request)
+    public function __construct(private ?Request $request = null)
     {
     }
 
@@ -169,7 +169,7 @@ class Form
                     'switch' => isset($data[$name]) && strtolower($data[$name]) === 'on',
 
                     // For 'combobox' type fields, handle multiple selections or single value
-                    'combobox' => isset($data[$name]) && !empty($data[$name]) && $field['multiple']
+                    'combobox' => isset($data[$name]) && !empty($data[$name]) && $field['multiple'] && !is_array($data[$name])
                     ? explode(',', $data[$name])
                     : $parseInput($data, $field, $name),
 
@@ -287,6 +287,17 @@ class Form
     public function getValue(string $name, mixed $default = null): mixed
     {
         return $this->getField($name)['value'] ?? $default;
+    }
+
+    /**
+     * Sets the value of a form field.
+     * 
+     * @param string $name Field name.
+     * @param mixed $value Value to set.
+     */
+    public function setValue(string $name, mixed $value = null): void
+    {
+        $this->fields[$name]['value'] = $value;
     }
 
     /**
@@ -579,11 +590,34 @@ class Form
      */
     public function renderField(string $name, array $field = []): string
     {
-        $field = array_merge($this->getField($name), $field);
+        $field = array_merge(['name' => $name], $this->getField($name), $field);
         return $this->addInputClass(
             $this->inputRender(
                 $field
             ),
+            $field
+        );
+    }
+
+    /**
+     * Renders a single form field as HTML with added input classes.
+     * 
+     * This method takes a field name and optionally a field configuration array,
+     * merges them with the existing field data, and renders the field as HTML
+     * with the configured input classes applied.
+     * 
+     * @param string $name The name of the field to render.
+     * @param array $field Optional field configuration to override existing field data.
+     * 
+     * @return string The rendered HTML for the form field.
+     */
+    public function inputField(string $name, array $field = []): string
+    {
+        $field = array_merge(['name' => $name], $this->getField($name), $field);
+        $field = $this->parseFieldData($field);
+
+        return $this->addInputClass(
+            $this->renderFieldHtml($field),
             $field
         );
     }

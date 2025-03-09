@@ -25,17 +25,124 @@ if (!$isAjax):
         <!-- Tailwind Global Style Config -->
         <?= tailwind() ?>
 
+        <style>
+            #preloader {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 9999;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgb(var(--color-primary-100) / 100);
+            }
+
+            .lds-ellipsis,
+            .lds-ellipsis div {
+                box-sizing: border-box;
+            }
+
+            .lds-ellipsis {
+                display: inline-block;
+                position: relative;
+                width: 80px;
+                height: 80px;
+            }
+
+            .lds-ellipsis div {
+                position: absolute;
+                top: 33.33333px;
+                width: 13.33333px;
+                height: 13.33333px;
+                border-radius: 50%;
+                background: rgb(var(--color-accent-700) / 100);
+                animation-timing-function: cubic-bezier(0, 1, 1, 0);
+            }
+
+            .lds-ellipsis div:nth-child(1) {
+                left: 8px;
+                animation: lds-ellipsis1 0.6s infinite;
+            }
+
+            .lds-ellipsis div:nth-child(2) {
+                left: 8px;
+                animation: lds-ellipsis2 0.6s infinite;
+            }
+
+            .lds-ellipsis div:nth-child(3) {
+                left: 32px;
+                animation: lds-ellipsis2 0.6s infinite;
+            }
+
+            .lds-ellipsis div:nth-child(4) {
+                left: 56px;
+                animation: lds-ellipsis3 0.6s infinite;
+            }
+
+            @keyframes lds-ellipsis1 {
+                0% {
+                    transform: scale(0);
+                }
+
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes lds-ellipsis3 {
+                0% {
+                    transform: scale(1);
+                }
+
+                100% {
+                    transform: scale(0);
+                }
+            }
+
+            @keyframes lds-ellipsis2 {
+                0% {
+                    transform: translate(0, 0);
+                }
+
+                100% {
+                    transform: translate(24px, 0);
+                }
+            }
+        </style>
+        <script>
+            window.addEventListener('load', function () {
+                const preloader = document.getElementById('preloader');
+                if (preloader) {
+                    preloader.remove();
+                }
+            });
+        </script>
+
         <!-- Importing Vite Scripts -->
         <?= panel()->getConfig('vite', '') ?>
     </head>
 
-    <body class="antialiased bg-primary-100 text-primary-800" x-data="{mobileMenuOpen: false}">
+    <body class="antialiased bg-primary-100 text-primary-800 print:bg-white" x-data="{mobileMenuOpen: false}">
+
+        <!-- Preloader -->
+        <div id="preloader">
+            <div class="lds-ellipsis">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
         <div id="app">
         <?php endif ?>
+        <?php $hide_sidebar ??= request()->query('hide_sidebar', false) !== false; ?>
         <div>
             <!-- Header Part START -->
             <header
-                class="fixed z-30 top-0 right-0 left-0 lg:left-64 flex items-center justify-between h-14 md:h-16 px-4 md:px-6 bg-white/85 backdrop-blur border-b">
+                class="print:hidden fixed z-30 top-0 right-0 left-0 <?= _e(!$hide_sidebar ? 'lg:left-64' : '') ?> flex items-center justify-between h-14 md:h-16 px-4 md:px-6 bg-white/85 backdrop-blur border-b">
                 <!-- Header Breadcrumb START -->
                 <nav class="flex items-center gap-1 md:gap-1.5 max-w-48 sm:max-w-full truncate">
                     <!-- Dashboard Link -->
@@ -134,7 +241,7 @@ if (!$isAjax):
 
                     <!-- Mobile Menu Button -->
                     <button x-on:click="mobileMenuOpen = true"
-                        class="lg:hidden p-1.5 text-primary-700 rounded-lg focus:outline-none hover:bg-primary-100">
+                        class="<?= _e(!$hide_sidebar ? 'lg:hidden' : '') ?> p-1.5 text-primary-700 rounded-lg focus:outline-none hover:bg-primary-100">
                         <!-- Open Menu Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2" x-show="!mobileMenuOpen">
@@ -151,31 +258,28 @@ if (!$isAjax):
             </header> <!-- Header Part END -->
 
             <!-- Sidebar Overlay -->
-            <div :class="mobileMenuOpen ? 'fixed inset-0 z-30 bg-black/30 lg:hidden block' : 'fixed inset-0 z-30 bg-black/30 lg:hidden hidden'"
+            <div :class="'fixed inset-0 z-30 bg-black/30 ' + (mobileMenuOpen ? '<?= _e(!$hide_sidebar ? 'lg:hidden block' : '') ?>' : 'lg:hidden hidden')"
                 x-on:click="mobileMenuOpen && (mobileMenuOpen = false)"></div>
 
             <!-- NOTE: in this menu used heroicons (https://heroicons.com/outline) without <svg></svg> tag -->
             <!-- Sidebar START -->
-            <aside x-cloak
-                :class="{ 'fixed inset-y-0 left-0 z-40 flex flex-col w-60 md:w-64 min-h-screen overflow-y-auto text-primary-100 transition duration-200 transform bg-primary-800 lg:translate-x-0 translate-x-0 ease-in': mobileMenuOpen, 'fixed inset-y-0 left-0 z-40 flex flex-col w-60 md:w-64 min-h-screen overflow-y-auto text-primary-100 transition duration-200 transform bg-primary-800 lg:translate-x-0 -translate-x-full ease-out': !mobileMenuOpen }">
+            <aside simplescroll x-cloak
+                :class="'print:hidden fixed inset-y-0 left-0 z-40 flex flex-col w-60 md:w-64 min-h-screen overflow-y-auto text-primary-100 transition duration-200 transform bg-primary-800 <?= _e(!$hide_sidebar ? 'lg:translate-x-0' : '') ?> ' + (mobileMenuOpen ? 'translate-x-0 ease-in' : '-translate-x-full ease-out')">
                 <!-- Shop Page URL -->
                 <a href="<?= _e(url('/')) ?>" native
-                    class="flex gap-4 items-center justify-start w-full px-6 pt-6 mb-8 group">
-                    <span class="bg-white rounded-lg w-11 h-11 flex items-center justify-center">
-                        <?php $icon = panel()->getConfig('sidebar_icon');
-                        if (!empty($icon)): ?>
-                            <?= $icon ?>
-                        <?php else: ?>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-7 text-accent-600"
-                                fill="currentColor">
-                                <path
-                                    d="M16.997 20c-.899 0-1.288-.311-1.876-.781-.68-.543-1.525-1.219-3.127-1.219-1.601 0-2.446.676-3.125 1.22-.587.469-.975.78-1.874.78-.897 0-1.285-.311-1.872-.78C4.444 18.676 3.601 18 2 18v2c.898 0 1.286.311 1.873.78.679.544 1.523 1.22 3.122 1.22 1.601 0 2.445-.676 3.124-1.219.588-.47.976-.781 1.875-.781.9 0 1.311.328 1.878.781.679.543 1.524 1.219 3.125 1.219s2.446-.676 3.125-1.219C20.689 20.328 21.1 20 22 20v-2c-1.602 0-2.447.676-3.127 1.219-.588.47-.977.781-1.876.781zM6 8.5 4 9l2 8h.995c1.601 0 2.445-.676 3.124-1.219.588-.47.976-.781 1.875-.781.9 0 1.311.328 1.878.781.679.543 1.524 1.219 3.125 1.219H18l.027-.107.313-1.252L20 9l-2-.5V5.001a1 1 0 0 0-.804-.981L13 3.181V2h-2v1.181l-4.196.839A1 1 0 0 0 6 5.001V8.5zm2-2.681 4-.8 4 .8V8l-4-1-4 1V5.819z">
-                                </path>
-                            </svg>
-                        <?php endif ?>
-                    </span>
+                    class="flex gap-4 items-center justify-start w-full px-6 pt-6 mb-6 group">
+                    <?php
+                    $image = panel()->getConfig('sidebar_image');
+                    $icon = panel()->getConfig('sidebar_icon');
+                    if (!empty($image)): ?>
+                        <img src="<?= $image ?>" class="w-12 h-12 object-contain" alt="Sidebar Image">
+                    <?php else: ?>
+                        <span class="bg-white rounded-lg w-11 h-11 flex items-center justify-center">
+                            <?= $icon ?? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-7 text-accent-600" fill="currentColor"><path d="M16.997 20c-.899 0-1.288-.311-1.876-.781-.68-.543-1.525-1.219-3.127-1.219-1.601 0-2.446.676-3.125 1.22-.587.469-.975.78-1.874.78-.897 0-1.285-.311-1.872-.78C4.444 18.676 3.601 18 2 18v2c.898 0 1.286.311 1.873.78.679.544 1.523 1.22 3.122 1.22 1.601 0 2.445-.676 3.124-1.219.588-.47.976-.781 1.875-.781.9 0 1.311.328 1.878.781.679.543 1.524 1.219 3.125 1.219s2.446-.676 3.125-1.219C20.689 20.328 21.1 20 22 20v-2c-1.602 0-2.447.676-3.127 1.219-.588.47-.977.781-1.876.781zM6 8.5 4 9l2 8h.995c1.601 0 2.445-.676 3.124-1.219.588-.47.976-.781 1.875-.781.9 0 1.311.328 1.878.781.679.543 1.524 1.219 3.125 1.219H18l.027-.107.313-1.252L20 9l-2-.5V5.001a1 1 0 0 0-.804-.981L13 3.181V2h-2v1.181l-4.196.839A1 1 0 0 0 6 5.001V8.5zm2-2.681 4-.8 4 .8V8l-4-1-4 1V5.819z"></path></svg>' ?>
+                        </span>
+                    <?php endif ?>
                     <span
-                        class="font-medium opacity-90 group-hover:opacity-100 transition"><?= _e(panel()->getConfig('site_name', 'admin')) ?></span>
+                        class="text-xl font-medium opacity-90 group-hover:opacity-100 transition"><?= _e(panel()->getConfig('site_name', 'admin')) ?></span>
                 </a>
 
                 <!-- Menu Items START -->
@@ -262,7 +366,7 @@ if (!$isAjax):
             </aside> <!-- Sidebar END -->
 
             <!-- Main Content Part Start -->
-            <main class="lg:ml-64 mt-14 md:mt-16">
+            <main class="<?= _e(!$hide_sidebar ? 'lg:ml-64' : '') ?> mt-14 md:mt-16 print:m-0">
                 <!-- Render Flash Messages START -->
                 <?php
                 // Check if there are any flash messages.

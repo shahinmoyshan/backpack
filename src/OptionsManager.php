@@ -277,8 +277,12 @@ class OptionsManager
      */
     public function saveSettings(): void
     {
+        $fields = collect($this->getFields())
+            ->filter(fn($field) => !in_array($field['type'], ['heading', 'divider']))
+            ->all();
+
         $data = $this->request->all(
-            array_column($this->getFields(), 'name')
+            array_column($fields, 'name')
         );
 
         try {

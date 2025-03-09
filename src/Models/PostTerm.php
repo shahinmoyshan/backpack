@@ -32,7 +32,7 @@ class PostTerm extends Model
      * Term's description
      * @var string
      */
-    public string $description;
+    public ?string $description;
 
     /**
      * Term's type
@@ -45,4 +45,28 @@ class PostTerm extends Model
      * @var int|null
      */
     public ?int $terms_id;
+
+    /**
+     * The date and time the post term was created.
+     *
+     * @var ?string
+     */
+    public ?string $created_at;
+
+    /**
+     * The date and time the post term was updated.
+     *
+     * @var ?string
+     */
+    public ?string $updated_at;
+
+    /**
+     * Converts the term object to a string representation.
+     * 
+     * @return string The name of the term.
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

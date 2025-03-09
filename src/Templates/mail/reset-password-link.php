@@ -14,5 +14,3 @@ $template->layout('mail/layout')
         <?= _e(__('reset password')) ?>
     </a>
 </div>
-
-<p><?= _e(__('Note: This link will expire in 24 hours.')) ?></p>

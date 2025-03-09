@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS terms (
     slug VARCHAR(100) UNIQUE NOT NULL,
     description TEXT,
     terms_id INT DEFAULT NULL,
-    term_type ENUM('category', 'tag') DEFAULT 'category',
+    term_type VARCHAR(50),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (terms_id) REFERENCES terms(id) ON DELETE SET NULL,
@@ -84,12 +84,14 @@ CREATE TABLE IF NOT EXISTS posts (
     slug VARCHAR(255) UNIQUE NOT NULL,
     thumbnail TEXT,
     content TEXT,
+    users_id INT,
     status ENUM('published', 'draft') DEFAULT 'draft',
     post_type ENUM('page', 'blog', 'custom') DEFAULT 'page',
     seo_settings TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     KEY post_type (post_type),
+    KEY users_id (users_id),
     KEY title (title)
 );
 

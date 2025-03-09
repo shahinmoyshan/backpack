@@ -91,14 +91,13 @@ class ManageRoles
                 ]
             ],
 
-            // The form rendering behavior for the admin role management page.
-            'onFormRender' => function (Form $form) {
-                // If the form is editing an existing role and the role ID is the
-                // same as the current user's role ID, then disable the role
-                // permissions field.
-                if ($form->hasField('id') && intval($form->getValue('id', 0)) === user('admin_roles_id')) {
-                    $form->merge('role_permissions', ['attrs' => ['disabled' => true, 'searchable' => false, 'clear' => false]]);
-                }
+            // Filter the roles before saving..
+            'onSave' => function (Form $form) {
+                $value = array_values(
+                    array_filter((array) $form->getValue('role_permissions', []))
+                );
+                $form->setValue('role_permissions', $value);
+                return $form->save();
             },
 
             // The bulk actions for the admin role management page.
@@ -116,6 +115,11 @@ class ManageRoles
                     // The condition for when the delete bulk action is displayed.
                     'when' => fn() => has_permission('delete_roles'),
                 ],
+            ],
+
+            // The partials for the admin role management page.
+            'partials_inc' => [
+                'form' => backpack_templates_dir('admin/bread/form/role')
             ],
 
             // The columns for the admin role management page.

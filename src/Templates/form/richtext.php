@@ -1,7 +1,7 @@
 <?php
 
 if (!isset($field['attrs']['toolbar'])) {
-    $field['attrs']['toolbar'] = ['ai', 'p', 'h1', 'h2', 'b', 'i', 'strike', 'list', 'quote', 'highlight', 'undo', 'redo'];
+    $field['attrs']['toolbar'] = ['ai', 'p', 'h1', 'h2', 'b', 'i', 'strike', 'list', 'quote', 'highlight', 'table', 'image', 'youtube', 'source', 'undo', 'redo'];
 }
 
 $toolbar = $field['attrs']['toolbar'] ?? [];
@@ -139,6 +139,136 @@ $toolbar = $field['attrs']['toolbar'] ?? [];
                             d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
                     </svg>
                 </button>
+            <?php endif ?>
+            <?php if (in_array('table', $toolbar)): ?>
+                <!-- Table -->
+                <div x-data="{modal: false}">
+                    <button x-on:click="modal=true" title="<?= __e('Table') ?>" type="button"
+                        class="px-1.5 py-1 rounded-md transition duration-75"
+                        :class="editor().isActive('table', updatedAt) ? btnActiveClass : btnNonActiveClass">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5" />
+                        </svg>
+                    </button>
+                    <div x-cloak x-show="modal" x-on:click="modal=false" x-on:keyup.escape.window="modal = false"
+                        class="fixed inset-0 z-40 bg-black/30 w-full h-full flex items-center justify-center">
+                        <div class="max-h-96 overflow-y-auto bg-white max-w-sm w-full p-6 sm:rounded-lg shadow-lg">
+                            <div class="space-y-2">
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()">
+                                    Insert table
+                                </button>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().addColumnBefore().run()">
+                                    Add column before
+                                </button>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().addColumnAfter().run()">
+                                    Add column after
+                                </button>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().deleteColumn().run()">
+                                    Delete column
+                                </button>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().addRowBefore().run()">
+                                    Add row before
+                                </button>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().addRowAfter().run()">
+                                    Add row after
+                                </button>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().deleteRow().run()">
+                                    Delete row
+                                </button>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().deleteTable().run()">
+                                    Delete table
+                                </button>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().mergeCells().run()">
+                                    Merge cells
+                                </button>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    x-on:click="editor().chain().focus().splitCell().run()">
+                                    Split cell
+                                </button>
+                                <hr>
+                                <button type="button"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"><?= __e('Close') ?></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif ?>
+            <?php if (in_array('image', $toolbar)): ?>
+                <!-- Image -->
+                <button title="<?= __e('Image') ?>" type="button" x-on:click="addImage()"
+                    class="px-1.5 py-1 rounded-md transition duration-75"
+                    :class="editor().isActive('image', updatedAt) ? btnActiveClass : btnNonActiveClass">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                    </svg>
+                </button>
+            <?php endif ?>
+            <?php if (in_array('youtube', $toolbar)): ?>
+                <!-- Image -->
+                <button title="<?= __e('Add Youtube Video') ?>" type="button" x-on:click="addYoutube()"
+                    class="px-1.5 py-1 rounded-md transition duration-75"
+                    :class="editor().isActive('youtube', updatedAt) ? btnActiveClass : btnNonActiveClass">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M21.593 7.203a2.506 2.506 0 0 0-1.762-1.766C18.265 5.007 12 5 12 5s-6.264-.007-7.831.404a2.56 2.56 0 0 0-1.766 1.778c-.413 1.566-.417 4.814-.417 4.814s-.004 3.264.406 4.814c.23.857.905 1.534 1.763 1.765 1.582.43 7.83.437 7.83.437s6.265.007 7.831-.403a2.515 2.515 0 0 0 1.767-1.763c.414-1.565.417-4.812.417-4.812s.02-3.265-.407-4.831zM9.996 15.005l.005-6 5.207 3.005-5.212 2.995z">
+                        </path>
+                    </svg>
+                </button>
+            <?php endif ?>
+            <?php if (in_array('source', $toolbar)): ?>
+                <!-- Source Code -->
+                <div x-data="{modal: false, html: ''}">
+                    <button x-on:click="modal = true, html = editor().getHTML()" title="<?= __e('Source Code') ?>"
+                        type="button" x-on:click="addSource()" class="px-1.5 py-1 rounded-md transition duration-75"
+                        :class="btnNonActiveClass">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />
+                        </svg>
+                    </button>
+                    <!-- Source Code Modal -->
+                    <div x-cloak x-show="modal"
+                        class="fixed inset-0 z-40 bg-black/30 w-full h-full flex items-center justify-center">
+                        <div class="bg-white max-w-2xl w-full p-6 sm:rounded-lg shadow-lg" x-on:click.away="modal=false"
+                            x-on:keyup.escape.window="modal = false">
+                            <label>
+                                <h3 class="font-medium mb-2"><?= __e('Source Code') ?></h3>
+                                <textarea rows="5" x-model="html"
+                                    class="w-full p-3 border border-primary-300 rounded shadow-sm focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50"></textarea>
+                            </label>
+                            <div class="mt-6 flex gap-2 items-center">
+                                <button type="button" x-on:click="addSource(html), modal = false, html = ''"
+                                    class="px-4 py-2 text-sm font-medium text-white transition-colors duration-300 transform bg-accent-600 rounded-md hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80"><?= __e('Insert') ?></button>
+                                <button type="button" x-on:click="modal = false"
+                                    class="px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"><?= __e('Close') ?></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <?php endif ?>
             <?php if (in_array('undo', $toolbar)): ?>
                 <!-- Undo -->

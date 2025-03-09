@@ -277,12 +277,19 @@ if (!function_exists('parse_anchor_url')) {
                                                 continue;
                                             }
                                             $actionUrl = isset($actionSetting['url']) ? is_callable($actionSetting['url']) ? call_user_func($actionSetting['url'], $item) : $actionSetting['url'] : route_url($bread->getConfig('route')) . '/' . sprintf($actionSetting['route'], $item->id);
+                                            $tooltip = $actionSetting['tooltip'] ?? '';
                                             ?>
-                                            <a href="<?= _e($actionUrl) ?>" target="<?= _e($actionSetting['target'] ?? '_self') ?>"
-                                                class="flex items-center gap-1 text-[0.8rem] font-medium hover:underline <?= ['edit' => 'text-amber-600 hover:text-amber-700', 'delete' => 'text-red-600 hover:text-red-700', 'view' => 'text-accent-600 hover:text-accent-700'][$actionType] ?? '' ?>">
-                                                <?= $actionSetting['icon'] ?>
-                                                <span><?= _e($actionSetting['title']) ?></span>
-                                            </a>
+                                            <div class="relative">
+                                                <a href="<?= _e($actionUrl) ?>" target="<?= _e($actionSetting['target'] ?? '_self') ?>"
+                                                    class="<?= _e(!empty($tooltip) ? 'peer' : '') ?> flex items-center gap-1 text-[0.8rem] font-medium hover:underline <?= ['edit' => 'text-amber-600 hover:text-amber-700', 'delete' => 'text-red-600 hover:text-red-700', 'view' => 'text-accent-600 hover:text-accent-700'][$actionType] ?? '' ?>">
+                                                    <?= $actionSetting['icon'] ?>
+                                                    <span><?= _e($actionSetting['title'] ?? '') ?></span>
+                                                </a>
+                                                <?php if (!empty($tooltip)): ?>
+                                                    <div class="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-10 flex w-max max-w-48 flex-col gap-1 rounded bg-primary-800 px-2 py-1.5 text-[0.8rem] text-primary-50 opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100"
+                                                        role="tooltip"><?= _e($tooltip) ?></div>
+                                                <?php endif ?>
+                                            </div>
                                         <?php endforeach ?>
                                     </div>
                                 </td>
@@ -323,23 +330,28 @@ if (!function_exists('parse_anchor_url')) {
                     </select>
                 </div>
                 <div class="md:w-4/12">
-                    <?= $bread->getPaginator()->getLinks(
+                    <?php
+                    $links = $bread->getPaginator()->getLinks(
                         links: 1,
                         classes: [
                             'ul' => 'flex flex-wrap justify-center md:justify-end gap-x-1 gap-y-2',
                             'li' => '',
-                            'a' => 'text-sm px-2 py-1 block text-primary-800 min-w-8 h-8 flex items-center justify-center border transition rounded-md hover:bg-primary-100 hover:text-primary-900',
-                            'a.current' => 'bg-accent-600 text-white',
+                            'a' => 'text-sm px-2 py-1 block text-primary-800 min-w-8 h-8 flex items-center justify-center border transition rounded-md {anchor_class}',
+                            'a.current' => '{active_class}',
                         ],
                         entity: [
                             'prev' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                                </svg>',
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                    </svg>',
                             'next' => '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                            </svg>'
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>'
                         ]
-                    ) ?>
+                    );
+
+                    $links = str_ireplace(['{anchor_class} {active_class}', '{anchor_class}'], ['bg-accent-600 text-white', 'bg-primary-50 hover:bg-primary-100 hover:text-primary-900'], $links);
+                    echo $links;
+                    ?>
                 </div>
             </div>
             <!-- Bread Footer Part END -->

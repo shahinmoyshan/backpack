@@ -32,23 +32,34 @@ $template->layout('auth/layout')
     <!-- Forget Password Form -->
     <div class="px-6 py-4">
         <!-- Form Title -->
-        <h3 class="mt-3 text-xl font-medium text-center text-primary-600"><?= _e(__('forget admin password')) ?></h3>
+        <h3 class="mt-3 mb-1 text-xl font-semibold text-center text-primary-600"><?= _e(__('forget password?')) ?>
+        </h3>
+        <p class="text-center text-xs text-primary-600">
+            <?= __e('Enter your email or username below to receive your password reset link.') ?>
+        </p>
         <form action="<?= _e(route_url('admin.auth.forget')) ?>" method="POST">
             <!-- CSRF Token -->
             <?= csrf() ?>
 
             <!-- Email or Username Input -->
-            <div class="w-full mt-4">
+            <label class="block w-full mt-6 relative">
+                <span class="absolute top-1/2 left-3 -translate-y-1/2 text-primary-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                </span>
                 <input
-                    class="block text-center w-full px-4 py-2 mt-2 text-primary-700 placeholder-primary-500 focus:border-accent-300 bg-white border border-primary-300 rounded-lg focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300"
+                    class="block w-full px-10 py-2.5 mt-2 text-[0.9375rem] text-primary-700 placeholder-primary-500 bg-white border border-primary-300 rounded-md focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300"
                     type="text" name="user" placeholder="<?= _e(__('username or email')) ?>"
                     aria-label="Username or Email" />
-            </div>
+            </label>
 
             <!-- Forget Password Button -->
             <div class="mt-6">
                 <button
-                    class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary-800 rounded-lg hover:bg-primary-700 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-50">
+                    class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary-800 rounded-md hover:bg-primary-700 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-50">
                     <?= _e(__('send reset link')) ?>
                 </button>
             </div>

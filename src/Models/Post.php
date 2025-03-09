@@ -49,9 +49,16 @@ class Post extends Model
     /**
      * The content of the post.
      *
-     * @var string
+     * @var null|string
      */
-    public string $content;
+    public ?string $content;
+
+    /**
+     * The Post Author
+     *
+     *  @var null|int
+     */
+    public ?int $users_id;
 
     /**
      * The status of the post.
@@ -97,7 +104,6 @@ class Post extends Model
     {
         return [
             'meta' => ['has' => 'many', 'model' => PostMeta::class, 'formIgnore' => true],
-            'terms' => ['has' => 'many-x', 'model' => PostTerm::class, 'table' => 'posts_terms', 'formIgnore' => true],
         ];
     }
 
@@ -109,10 +115,9 @@ class Post extends Model
     public function form(): array
     {
         return [
-            'post_type' => ['type' => 'hidden', 'value' => 'page'],
             'slug' => ['required' => false],
             'status' => ['type' => 'select', 'options' => ['published' => __('published'), 'draft' => __('draft')]],
-            'content' => ['type' => 'richtext', 'label' => false],
+            'content' => ['type' => 'richtext', 'label' => false, 'required' => false],
         ];
     }
 
