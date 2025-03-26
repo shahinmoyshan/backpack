@@ -116,7 +116,7 @@ class Post extends Model
     {
         return [
             'slug' => ['required' => false],
-            'status' => ['type' => 'combobox', 'options' => ['published' => __('published'), 'draft' => __('draft')]],
+            'status' => ['type' => 'select', 'options' => ['published' => __('published'), 'draft' => __('draft')]],
             'content' => ['type' => 'richtext', 'label' => false, 'required' => false],
         ];
     }
