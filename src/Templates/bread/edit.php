@@ -11,7 +11,7 @@
             call_user_func($bread->getConfig('action')['delete']['when'], $bread->getModel())
         ): ?>
             <a href="<?= _e(route_url($bread->getConfig('route')) . '/' . sprintf($bread->getConfig('action')['delete']['route'], $bread->getModel()->id)) ?>"
-                class="px-3 inline-block w-max py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-red-600 shadow shadow-red-200 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80">
+                class="px-3 inline-block w-max py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-red-600 shadow-sm shadow-red-200 rounded-lg hover:bg-red-500 focus:outline-hidden focus:ring-3 focus:ring-red-300/80">
                 <?= _e($bread->getConfig('action')['delete']['title'] ?? __('delete')) ?>
             </a>
         <?php endif ?>
@@ -40,15 +40,15 @@
             <button type="submit" x-ref="breadFormSubmit" class="hidden"></button>
             <?php if (in_array('save', $submit_buttons)): ?>
                 <button type="button" x-on:click="$refs.breadFormAction.name = '_save', $refs.breadFormSubmit.click()"
-                    class="px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-600 shadow shadow-accent-200 rounded-lg hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80"><?= _e(__('save changes')) ?></button>
+                    class="px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-600 shadow-sm shadow-accent-200 rounded-lg hover:bg-accent-500 focus:outline-hidden focus:ring-3 focus:ring-accent-300/80"><?= _e(__('save changes')) ?></button>
             <?php endif ?>
             <?php if (in_array('save_and_continue', $submit_buttons)): ?>
                 <button type="button" x-on:click="$refs.breadFormAction.name = '_save_edit', $refs.breadFormSubmit.click()"
-                    class="px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"><?= _e(__('save & continue editing')) ?></button>
+                    class="px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-sm shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80"><?= _e(__('save & continue editing')) ?></button>
             <?php endif ?>
             <?php if (in_array('cancel', $submit_buttons)): ?>
                 <a href="<?= _e(route_url($bread->config['route'])) ?>"
-                    class="text-center md:text-left px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"><?= _e(__('cancel')) ?></a>
+                    class="text-center md:text-left px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-sm shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80"><?= _e(__('cancel')) ?></a>
             <?php endif ?>
         </div>
     </form> <!-- Bread Create Form END -->

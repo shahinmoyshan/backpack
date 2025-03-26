@@ -43,7 +43,7 @@ $template->layout('auth/layout')
                 </svg>
             </span>
             <input
-                class="block w-full px-10 py-2.5 mt-2 text-[0.9375rem] text-primary-700 placeholder-primary-500 bg-white border border-primary-300 rounded-md focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300"
+                class="block w-full px-10 py-2.5 mt-2 text-[0.9375rem] text-primary-700 placeholder-primary-500 bg-white border border-primary-300 rounded-md focus:border-accent-300 focus:outline-hidden focus:ring-3 focus:ring-accent-300/40"
                 type="text" name="user" value="<?= _e(request()->post('user', '')) ?>"
                 placeholder="<?= _e(__('username or email')) ?>" aria-label="Username or Email" />
         </label>
@@ -58,7 +58,7 @@ $template->layout('auth/layout')
                 </svg>
             </span>
             <input
-                class="block w-full px-10 py-2.5 mt-2 text-[0.9375rem] text-primary-700 placeholder-primary-500 bg-white border border-primary-300 rounded-md focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300"
+                class="block w-full px-10 py-2.5 mt-2 text-[0.9375rem] text-primary-700 placeholder-primary-500 bg-white border border-primary-300 rounded-md focus:border-accent-300 focus:outline-hidden focus:ring-3 focus:ring-accent-300/40"
                 :type="type" name="password" placeholder="<?= _e(__('password')) ?>" aria-label="Password" />
 
             <!-- Show/Hide Password -->
@@ -81,7 +81,7 @@ $template->layout('auth/layout')
         <!-- Login Button -->
         <div class="mt-6">
             <button
-                class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary-800 rounded-md hover:bg-primary-700 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-50">
+                class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary-800 rounded-md hover:bg-primary-700 focus:outline-hidden focus:ring-3 focus:ring-primary-300/50">
                 <?= _e(__('login')) ?>
             </button>
         </div>

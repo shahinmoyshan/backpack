@@ -15,7 +15,7 @@ if (isset($bread->getConfig('partials_inc', [])['form'])) {
 } else {
     // render default form
     echo <<<FORM
-        <div class="bg-white shadow-lg w-full sm:rounded-lg px-8 md:px-12">
+        <div class="bg-white border border-primary-200 shadow-lg w-full sm:rounded-lg px-8 md:px-12">
             {$form}
         </div>
     FORM;

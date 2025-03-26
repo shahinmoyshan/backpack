@@ -71,11 +71,7 @@ class AdminRole extends Model
     {
         if (isset($this->id)) {
             return $this->cachedPermissions ??= cache('permissions')
-                ->load(
-                    $this->id,
-                    fn() => $this->permissions,
-                    '30 minutes'
-                );
+                ->load($this->id, fn() => $this->permissions, '30 minutes');
         }
 
         return [];
@@ -103,18 +99,6 @@ class AdminRole extends Model
     protected function afterSave()
     {
         cache('permissions')->erase($this->id);
-    }
-
-    /**
-     * Form configuration for the admin role model.
-     *
-     * @return array The form configuration.
-     */
-    public function form(): array
-    {
-        return [
-            'role_permissions' => ['required' => false, 'attrs' => ['searchable' => true, 'clear' => true]],
-        ];
     }
 
     /**

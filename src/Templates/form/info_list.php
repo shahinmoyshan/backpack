@@ -40,7 +40,7 @@ $value = collect((array) $field['value'] ?? [])
     <!-- Info List Header -->
     <div class="flex items-center justify-between mb-2">
         <button type="button" x-on:click="showModal=true"
-            class="bg-accent-600 hover:bg-accent-700 text-sm font-medium text-white px-2 py-1 rounded flex items-center gap-1">
+            class="bg-accent-600 hover:bg-accent-700 text-sm font-medium text-white px-2 py-1 rounded-sm flex items-center gap-1">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="size-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -52,7 +52,7 @@ $value = collect((array) $field['value'] ?? [])
     </div>
 
     <!-- Items List -->
-    <table class="w-full border">
+    <table class="w-full border border-primary-200">
         <thead>
             <tr class="bg-primary-50 text-sm">
                 <?php foreach ($setup['columns'] as $column): ?>
@@ -63,7 +63,7 @@ $value = collect((array) $field['value'] ?? [])
         </thead>
         <tbody>
             <template x-for="item in list" :key="item.id">
-                <tr class="border-t hover:bg-primary-50">
+                <tr class="border-t border-primary-200 hover:bg-primary-50">
                     <?php foreach (array_keys($setup['columns']) as $column): ?>
                         <td class="px-3 py-1.5">
                             <span class="text-sm" x-text="item.<?= $column ?>"></span>
@@ -92,7 +92,7 @@ $value = collect((array) $field['value'] ?? [])
                 </tr>
             </template>
             <tr x-show="!list.length">
-                <td colspan="<?= count($setup['columns']) + 1 ?>" class="border-t py-2 px-4">
+                <td colspan="<?= count($setup['columns']) + 1 ?>" class="border-primary-200 border-t py-2 px-4">
                     <p class="text-sm text-primary-500 text-center"><?= __e('no items') ?></p>
                 </td>
             </tr>
@@ -110,7 +110,7 @@ $value = collect((array) $field['value'] ?? [])
                 if (!in_array($input['type'], ['select', 'textarea', 'text', 'email', 'url', 'password', 'number', 'date', 'time', 'datetime-local', 'color'])) {
                     continue;
                 }
-                $inputClass = 'w-full text-sm border-primary-300 focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50 rounded-md';
+                $inputClass = 'w-full text-sm border-primary-300 focus:border-accent-300 focus:ring-3 focus:ring-accent-200/50 rounded-md';
                 ?>
                 <label class="mt-5 text-sm flex flex-col md:flex-row gap-2 items-start md:items-center">
                     <span
@@ -137,9 +137,9 @@ $value = collect((array) $field['value'] ?? [])
             <?php endforeach ?>
             <div class="mt-6 flex gap-2 items-center">
                 <button type="button" x-on:click="saveItem()"
-                    class="px-4 py-2 text-sm font-medium text-white transition-colors duration-300 transform bg-accent-600 rounded-md hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80"><?= _e(__('save')) ?></button>
+                    class="px-4 py-2 text-sm font-medium text-white transition-colors duration-300 transform bg-accent-600 rounded-md hover:bg-accent-500 focus:outline-hidden focus:ring-3 focus:ring-accent-300/80"><?= _e(__('save')) ?></button>
                 <button type="button" x-on:click="showModal=false, form= {}"
-                    class="px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"><?= _e(__('cancel')) ?></button>
+                    class="px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-smshadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80"><?= _e(__('cancel')) ?></button>
             </div>
         </div>
     </div>

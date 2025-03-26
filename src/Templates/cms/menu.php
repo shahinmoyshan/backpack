@@ -10,11 +10,11 @@ $menuItems = $manager->getSyncedMenuItems($manager->getLocation());
 
 <!-- Render the Menu Builder START -->
 <div class="w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 select-none overflow-x-auto">
-    <div class="bg-white border rounded-lg overflow-hidden shadow-sm"
+    <div class="bg-white border border-primary-200 rounded-lg overflow-hidden shadow-xs"
         x-data="menuManager(/** time: <?= _e(microtime()) ?> */)">
-        <div class="bg-primary-50 flex border-b items-center justify-between px-4 py-4">
+        <div class="bg-primary-50 flex border-b border-primary-200 items-center justify-between px-4 py-4">
             <select
-                class="py-2 text-sm rounded focus:border-accent-300 border-primary-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50"
+                class="py-2 text-sm rounded-sm focus:border-accent-300 border-primary-300 focus:ring-3 focus:ring-accent-200/50"
                 x-on:change="$fire.navigate('<?= _e(route_url($manager->getConfig('route'), ['location' => '__menu_location'])) ?>'.replace('__menu_location', $el.value))">
                 <?php foreach ($manager->getLocations() as $locationId => $location): ?>
                     <option <?= _e($manager->getLocation() == $locationId ? 'selected' : '') ?> value="<?= _e($locationId) ?>">
@@ -26,9 +26,9 @@ $menuItems = $manager->getSyncedMenuItems($manager->getLocation());
                 <?= csrf() ?>
                 <input type="hidden" name="__menuItems" :value="JSON.stringify(menuItems)">
                 <button
-                    class="px-4 py-2 font-medium text-white transition-colors duration-300 text-[0.8rem] transform bg-accent-600 rounded hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80"><?= __e('save changes') ?></button>
+                    class="px-4 py-2 font-medium text-white transition-colors duration-300 text-[0.8rem] transform bg-accent-600 rounded-sm hover:bg-accent-500 focus:outline-hidden focus:ring-3 focus:ring-accent-300/80"><?= __e('save changes') ?></button>
                 <button type="button" x-on:click="discardChanges()"
-                    class="px-4 py-2 font-medium text-white transition-colors duration-300 text-[0.8rem] transform bg-primary-700 rounded hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"><?= __e('reload') ?></button>
+                    class="px-4 py-2 font-medium text-white transition-colors duration-300 text-[0.8rem] transform bg-primary-700 rounded-sm hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80"><?= __e('reload') ?></button>
             </form>
         </div>
         <div class="grid grid-cols-9">
@@ -40,7 +40,7 @@ $menuItems = $manager->getSyncedMenuItems($manager->getLocation());
                 }
                 ?>
             </div>
-            <div class="col-span-6 border-l px-6 py-4 h-[75vh] overflow-y-auto">
+            <div class="col-span-6 border-l border-primary-200 px-6 py-4 h-[75vh] overflow-y-auto">
                 <?php require __DIR__ . '/inc/menu_items.php' ?>
                 <div x-cloak x-show="menuItems.length === 0">
                     <div class="flex flex-col items-center px-6 py-8">

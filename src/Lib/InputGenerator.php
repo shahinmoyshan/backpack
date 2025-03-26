@@ -80,7 +80,7 @@ class InputGenerator
             } elseif ($ignore && isset($fieldSetup[$name]['ignore']) && $fieldSetup[$name]['ignore']) {
                 continue;
             } elseif ($name == 'id') {
-                if (isset($field['default']) || request()->all(['id'])['id'] != null) {
+                if (isset($field['default']) || request('id') != null) {
                     $type = 'hidden';
                 } else {
                     continue;
@@ -232,5 +232,4 @@ class InputGenerator
 
         return $fields;
     }
-
 }

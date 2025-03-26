@@ -10,7 +10,7 @@ $required = isset($field['required']) && $field['required'] ? 'required' : '';
         $checked = strval($field['value'] ?? '') === strval($key) ? 'checked' : '';
         ?>
         <label
-            class="bg-white hover:bg-primary-50 rounded border p-3 cursor-pointer shadow-sm [&:has(input:checked)]:bg-accent-50/50 [&:has(input:checked)]:border-accent-600 [&:has(input:checked)]:ring-2 [&:has(input:checked)]:ring-accent-600/40 <?= _e($field['class'] ?? '') ?>">
+            class="bg-white hover:bg-primary-50 rounded-sm  border border-primary-200 p-3 cursor-pointer shadow-xs [&:has(input:checked)]:bg-accent-50/50 [&:has(input:checked)]:border-accent-400 [&:has(input:checked)]:ring-3 [&:has(input:checked)]:ring-accent-400/40 <?= _e($field['class'] ?? '') ?>">
             <input type="radio" name="<?= _e($field['name']) ?>" <?= _e($checked) ?> class="hidden" <?= _e($required) ?>
                 <?= _e($form->renderAttributes($attrs)) ?> value="<?= _e($key) ?>" />
             <?= $val ?>

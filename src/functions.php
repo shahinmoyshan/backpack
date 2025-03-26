@@ -1,10 +1,11 @@
 <?php
 
+use Backpack\Form;
 use Backpack\Lib\PrettyTime;
 use Backpack\Lib\Settings;
 use Backpack\Lib\TailwindHelper;
-use Backpack\MenuManager;
 use Backpack\Panel;
+use Backpack\MenuManager;
 use Hyper\Response;
 use Hyper\Template;
 use Hyper\Translator;
@@ -68,10 +69,15 @@ function apply_permissions(string|array $permissions, string $type = 'one'): voi
         }
     ) {
         $translations = [
-            'heading' => __('Permission Denied'),
+            'heading' => __('Access Forbidden'),
             'description' => __('__permission_denied_msg'),
-            'back_to_admin' => __('Go to Dashboard')
         ];
+
+        // Clear the output buffer if it's not empty
+        if (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+
         (new Response(
             <<<HTML
                 <!DOCTYPE html>
@@ -79,15 +85,13 @@ function apply_permissions(string|array $permissions, string $type = 'one'): voi
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Permission Denied</title>
+                    <title>Access Forbidden</title>
                     <style>
                         body {display: flex;justify-content: center;align-items: center;height: 100vh;margin: 0;background: linear-gradient(to right, #1e1e1e, #2c2c2c);font-family: ui-sans-serif, system-ui, sans-serif;color: white;text-align: center;}
-                        .container {background: #333;padding: 30px;border-radius: 12px;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);max-width: 400px;}
+                        .container {max-width: 360px;}
                         h1 {font-size: 64px;margin: 0;color: #e63946;}
                         h2 {font-size: 24px;margin-top: 10px;}
                         p {font-size: 16px;color: #ccc;}
-                        a {display: inline-block;margin-top: 20px;padding: 10px 20px;background-color: #e63946;color: white;text-decoration: none;border-radius: 5px;transition: background 0.3s ease;}
-                        a:hover {background-color: #d62839;}
                     </style>
                 </head>
                 <body>
@@ -95,7 +99,6 @@ function apply_permissions(string|array $permissions, string $type = 'one'): voi
                         <h1>403</h1>
                         <h2>{$translations['heading']}</h2>
                         <p>{$translations['description']}</p>
-                        <a href="/admin">{$translations['back_to_admin']}</a>
                     </div>
                 </body>
                 </html>
@@ -459,7 +462,7 @@ function short_number(?float $num): string
         // Divide the number by 1000 to move to the next unit
         $num /= 1000;
     }
-    // Return the formatted number, rounded to one decimal place
+    // Return the formatted number, rounded-sm to one decimal place
     return round($num, 1) . $units[$i];
 }
 
@@ -701,4 +704,17 @@ function add_backpack_language_file(string $lang, bool $prepend = false): void
 function is_admin_route(): bool
 {
     return strpos(request()->getPath(), '/admin') === 0;
+}
+
+/**
+ * Retrieves the Form instance from the IoC container.
+ *
+ * This function returns the instance of the Form class, which is used to
+ * generate form fields and render them in a Blade template.
+ *
+ * @return Form The instance of the Form class.
+ */
+function form(): Form
+{
+    return get(Form::class);
 }

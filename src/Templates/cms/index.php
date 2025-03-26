@@ -16,7 +16,7 @@ $template->layout('master')
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <?php foreach ($manager->getSections() as $section): ?>
             <a href="<?= _e(route_url($manager->getConfig('route'), ['id' => $section['id']])) ?>"
-                class="bg-white hover:bg-primary-50 shadow-sm hover:shadow px-6 py-5 rounded grid grid-cols-8 group">
+                class="bg-white border border-primary-200 hover:bg-primary-50 shadow-xs hover:shadow-sm px-6 py-5 rounded-sm grid grid-cols-8 group">
                 <div>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-7 sm:size-8 text-primary-700">

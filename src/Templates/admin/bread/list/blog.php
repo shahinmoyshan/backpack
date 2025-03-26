@@ -1,7 +1,7 @@
 <td class="px-4 py-4">
     <a href="<?= _e(route_url('admin.cms.blogs') . '/' . $item->id . '/edit') ?>">
         <?php if (!empty($item->thumbnail)): ?>
-            <img src="<?= media_url($item->thumbnail[1]) ?>" class="w-16 h-14 object-cover rounded-sm" alt="Blog Thumbnail">
+            <img src="<?= media_url($item->thumbnail[1]) ?>" class="w-16 h-14 object-cover rounded-xs" alt="Blog Thumbnail">
         <?php else: ?>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                 class="size-14 text-primary-600">
@@ -22,7 +22,7 @@
 </td>
 <td class="p-4">
     <span
-        class="px-1.5 text-[0.8rem] py-1 rounded-sm <?= ['published' => 'bg-accent-100 text-accent-700', 'draft' => 'bg-slate-200 text-slate-800'][$item->status] ?? 'bg-primary-100 text-primary-700' ?>"><?= __e($item->status) ?></span>
+        class="px-1.5 text-[0.8rem] py-1 rounded-xs <?= ['published' => 'bg-accent-100 text-accent-700', 'draft' => 'bg-slate-200 text-slate-800'][$item->status] ?? 'bg-primary-100 text-primary-700' ?>"><?= __e($item->status) ?></span>
 </td>
 <td class="p-4">
     <?= pretty_time($item->created_at) ?>

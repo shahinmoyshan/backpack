@@ -24,117 +24,12 @@ if (!$isAjax):
 
         <!-- Tailwind Global Style Config -->
         <?= tailwind() ?>
-
-        <style>
-            #preloader {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 9999;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: rgb(var(--color-primary-100) / 100);
-            }
-
-            .lds-ellipsis,
-            .lds-ellipsis div {
-                box-sizing: border-box;
-            }
-
-            .lds-ellipsis {
-                display: inline-block;
-                position: relative;
-                width: 80px;
-                height: 80px;
-            }
-
-            .lds-ellipsis div {
-                position: absolute;
-                top: 33.33333px;
-                width: 13.33333px;
-                height: 13.33333px;
-                border-radius: 50%;
-                background: rgb(var(--color-accent-700) / 100);
-                animation-timing-function: cubic-bezier(0, 1, 1, 0);
-            }
-
-            .lds-ellipsis div:nth-child(1) {
-                left: 8px;
-                animation: lds-ellipsis1 0.6s infinite;
-            }
-
-            .lds-ellipsis div:nth-child(2) {
-                left: 8px;
-                animation: lds-ellipsis2 0.6s infinite;
-            }
-
-            .lds-ellipsis div:nth-child(3) {
-                left: 32px;
-                animation: lds-ellipsis2 0.6s infinite;
-            }
-
-            .lds-ellipsis div:nth-child(4) {
-                left: 56px;
-                animation: lds-ellipsis3 0.6s infinite;
-            }
-
-            @keyframes lds-ellipsis1 {
-                0% {
-                    transform: scale(0);
-                }
-
-                100% {
-                    transform: scale(1);
-                }
-            }
-
-            @keyframes lds-ellipsis3 {
-                0% {
-                    transform: scale(1);
-                }
-
-                100% {
-                    transform: scale(0);
-                }
-            }
-
-            @keyframes lds-ellipsis2 {
-                0% {
-                    transform: translate(0, 0);
-                }
-
-                100% {
-                    transform: translate(24px, 0);
-                }
-            }
-        </style>
-        <script>
-            window.addEventListener('load', function () {
-                const preloader = document.getElementById('preloader');
-                if (preloader) {
-                    preloader.remove();
-                }
-            });
-        </script>
-
-        <!-- Importing Vite Scripts -->
-        <?= panel()->getConfig('vite', '') ?>
     </head>
 
     <body class="antialiased bg-primary-100 text-primary-800 print:bg-white" x-data="{mobileMenuOpen: false}">
 
         <!-- Preloader -->
-        <div id="preloader">
-            <div class="lds-ellipsis">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </div>
+        <?= tailwind()->getPreloaderElement() ?>
 
         <div id="app">
         <?php endif ?>
@@ -142,7 +37,7 @@ if (!$isAjax):
         <div>
             <!-- Header Part START -->
             <header
-                class="print:hidden fixed z-30 top-0 right-0 left-0 <?= _e(!$hide_sidebar ? 'lg:left-64' : '') ?> flex items-center justify-between h-14 md:h-16 px-4 md:px-6 bg-white/85 backdrop-blur border-b">
+                class="print:hidden fixed z-30 top-0 right-0 left-0 <?= _e(!$hide_sidebar ? 'lg:left-64' : '') ?> flex items-center justify-between h-14 md:h-16 px-4 md:px-6 bg-white/85 backdrop-blur-sm border-b border-primary-200">
                 <!-- Header Breadcrumb START -->
                 <nav class="flex items-center gap-1 md:gap-1.5 max-w-48 sm:max-w-full truncate">
                     <!-- Dashboard Link -->
@@ -186,7 +81,7 @@ if (!$isAjax):
                     <div class="relative flex items-center">
                         <!-- User Menu Button -->
                         <button x-on:click="open = !open"
-                            class="transition-colors duration-300 rounded-lg sm:px-2 sm:py-1 focus:outline-none hover:bg-primary-100">
+                            class="transition-colors duration-300 rounded-lg sm:px-2 sm:py-1 focus:outline-hidden hover:bg-primary-100">
                             <span class="sr-only"><?= _e(__('user menu')) ?></span>
                             <div class="flex items-center md:-mx-2">
                                 <div class="hidden md:mx-2 md:flex md:flex-col md:items-end md:leading-tight">
@@ -197,7 +92,7 @@ if (!$isAjax):
                                     <span class="text-xs text-primary-600"><?= _e(user()->role->name) ?></span>
                                 </div>
                                 <?php if (!empty(user('image'))): ?>
-                                    <img class="flex-shrink-0 w-8 h-8 overflow-hidden bg-primary-100 rounded-full md:mx-2"
+                                    <img class="shrink-0 w-8 h-8 overflow-hidden bg-primary-100 rounded-full md:mx-2"
                                         src="<?= _e(media_url(user('image'))) ?>" alt="<?= _e(user('username')) ?> photo">
                                 <?php else: ?>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -211,7 +106,7 @@ if (!$isAjax):
 
                         <!-- User Menu Popup START -->
                         <div x-cloak x-show="open" x-transition
-                            class="absolute right-0 z-50 w-56 py-2 bg-white border shadow-sm rounded-lg top-12 sm:top-14">
+                            class="absolute right-0 z-50 w-56 py-2 bg-white border border-primary-200 shadow-xs rounded-lg top-12 sm:top-14">
                             <!-- User Profile Page -->
                             <a href="<?= _e(route_url('admin.profile')) ?>"
                                 class="w-full flex items-center p-3 text-sm text-primary-600 capitalize transition-colors duration-300 transform hover:bg-primary-50">
@@ -227,7 +122,7 @@ if (!$isAjax):
                             <form action="<?= _e(route_url('admin.auth.logout')) ?>" method="POST">
                                 <?= csrf() ?>
                                 <button type="submit"
-                                    class="w-full flex items-center p-3 text-sm text-primary-600 capitalize transition-colors duration-300 transform hover:bg-primary-50">
+                                    class="w-full flex items-center p-3 text-sm text-primary-600 capitalize transition-colors duration-300 transform hover:bg-amber-50 hover:text-amber-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="size-5 mx-1">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -241,7 +136,7 @@ if (!$isAjax):
 
                     <!-- Mobile Menu Button -->
                     <button x-on:click="mobileMenuOpen = true"
-                        class="<?= _e(!$hide_sidebar ? 'lg:hidden' : '') ?> p-1.5 text-primary-700 rounded-lg focus:outline-none hover:bg-primary-100">
+                        class="<?= _e(!$hide_sidebar ? 'lg:hidden' : '') ?> p-1.5 text-primary-700 rounded-lg focus:outline-hidden hover:bg-primary-100">
                         <!-- Open Menu Icon -->
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="2" x-show="!mobileMenuOpen">
@@ -274,12 +169,12 @@ if (!$isAjax):
                     if (!empty($image)): ?>
                         <img src="<?= $image ?>" class="w-12 h-12 object-contain" alt="Sidebar Image">
                     <?php else: ?>
-                        <span class="bg-white rounded-lg w-11 h-11 flex items-center justify-center">
+                        <span class="bg-white rounded-lg w-12 h-12 flex items-center justify-center">
                             <?= $icon ?? '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="size-7 text-accent-600" fill="currentColor"><path d="M16.997 20c-.899 0-1.288-.311-1.876-.781-.68-.543-1.525-1.219-3.127-1.219-1.601 0-2.446.676-3.125 1.22-.587.469-.975.78-1.874.78-.897 0-1.285-.311-1.872-.78C4.444 18.676 3.601 18 2 18v2c.898 0 1.286.311 1.873.78.679.544 1.523 1.22 3.122 1.22 1.601 0 2.445-.676 3.124-1.219.588-.47.976-.781 1.875-.781.9 0 1.311.328 1.878.781.679.543 1.524 1.219 3.125 1.219s2.446-.676 3.125-1.219C20.689 20.328 21.1 20 22 20v-2c-1.602 0-2.447.676-3.127 1.219-.588.47-.977.781-1.876.781zM6 8.5 4 9l2 8h.995c1.601 0 2.445-.676 3.124-1.219.588-.47.976-.781 1.875-.781.9 0 1.311.328 1.878.781.679.543 1.524 1.219 3.125 1.219H18l.027-.107.313-1.252L20 9l-2-.5V5.001a1 1 0 0 0-.804-.981L13 3.181V2h-2v1.181l-4.196.839A1 1 0 0 0 6 5.001V8.5zm2-2.681 4-.8 4 .8V8l-4-1-4 1V5.819z"></path></svg>' ?>
                         </span>
                     <?php endif ?>
-                    <span
-                        class="text-xl font-medium opacity-90 group-hover:opacity-100 transition"><?= _e(panel()->getConfig('site_name', 'admin')) ?></span>
+                    <span class="truncate text-xl font-medium opacity-85 group-hover:opacity-100 transition">
+                        <?= _e(panel()->getConfig('site_name', 'admin')) ?></span>
                 </a>
 
                 <!-- Menu Items START -->
@@ -305,7 +200,7 @@ if (!$isAjax):
                                 x-data="{open: <?= $is_active ? 'true' : 'false' ?>}">
                                 <!-- Submenu Title and Toggler Button -->
                                 <button x-on:click="open = !open"
-                                    class="p-3 flex items-center gap-3 focus:outline-none <?= $is_active ? 'text-accent-700' : 'group-hover:text-accent-700' ?> w-full">
+                                    class="p-3 flex items-center gap-3 focus:outline-hidden <?= $is_active ? 'text-accent-700' : 'group-hover:text-accent-700' ?> w-full">
                                     <?php if (isset($item['icon']) && strpos($item['icon'], '<svg ') === 0): ?>
                                         <?= $item['icon'] ?>
                                     <?php elseif (isset($item['icon'])): ?>
@@ -357,7 +252,7 @@ if (!$isAjax):
                                 <!-- Menu Badge in right side -->
                                 <?php if (isset($item['badge']) && !empty($item['badge'])): ?>
                                     <span
-                                        class="ml-auto text-xs font-medium px-1.5 py-0.5 rounded-lg bg-accent-50 border border-accent-600 text-accent-700"><?= _e($item['badge']) ?></span>
+                                        class="ml-auto text-xs font-medium px-1.5 py-0.5 rounded-md bg-accent-700 text-accent-50"><?= _e($item['badge']) ?></span>
                                 <?php endif ?>
                             </a>
                         <?php endif ?>
@@ -434,7 +329,7 @@ if (!$isAjax):
                                 </div>
                                 <?php if (isset($notice['close']) && $notice['close']): ?>
                                     <button x-on:click="$refs.flashMessage_<?= _e($key) ?>.remove()"
-                                        class="p-1 transition-colors duration-300 transform rounded-md hover:bg-opacity-25 hover:bg-primary-600 focus:outline-none">
+                                        class="p-1 transition-colors duration-300 transform rounded-md hover:bg-primary-600/25 focus:outline-hidden">
                                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2"
                                                 stroke-linecap="round" stroke-linejoin="round" />
@@ -463,7 +358,7 @@ if (!$isAjax):
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-red-500 size-24 mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M6.787 7h10.426c-.108-.158-.201-.331-.318-.481l2.813-2.812-1.414-1.414-2.846 2.846a6.575 6.575 0 0 0-.723-.454 5.778 5.778 0 0 0-5.45 0c-.25.132-.488.287-.722.453L5.707 2.293 4.293 3.707l2.813 2.812c-.118.151-.21.323-.319.481zM5.756 9H2v2h2.307c-.065.495-.107.997-.107 1.5 0 .507.042 1.013.107 1.511H2v2h2.753c.013.039.021.08.034.118.188.555.421 1.093.695 1.6.044.081.095.155.141.234l-2.33 2.33 1.414 1.414 2.11-2.111a7.477 7.477 0 0 0 2.068 1.619c.479.253.982.449 1.496.58.204.052.411.085.618.118V16h2v5.914a6.23 6.23 0 0 0 .618-.118 6.812 6.812 0 0 0 1.496-.58c.465-.246.914-.55 1.333-.904.258-.218.5-.462.734-.716l2.111 2.111 1.414-1.414-2.33-2.33c.047-.08.098-.155.142-.236.273-.505.507-1.043.694-1.599.013-.039.021-.079.034-.118H22v-2h-2.308c.065-.499.107-1.004.107-1.511 0-.503-.042-1.005-.106-1.5H22V9H5.756z"></path></svg>
                             <p class="mt-4 text-2xl font-bold tracking-tight text-primary-600 sm:text-4xl"><?= __e('Error') ?></p>
                             <p class="mt-4 text-primary-500"><?= __e('That page could not be loaded, Please go back.') ?></p>
-                            <button x-on:click="$fire.reload()" class="mt-6 inline-block rounded-lg bg-accent-600 px-5 py-3 text-sm font-medium text-white hover:bg-accent-700 focus:outline-none focus:ring">&larr; <?= __e('go back') ?></button>
+                            <button x-on:click="$fire.reload()" class="mt-6 inline-block rounded-lg bg-accent-600 px-5 py-3 text-sm font-medium text-white hover:bg-accent-700 focus:outline-hidden focus:ring-3">&larr; <?= __e('go back') ?></button>
                         </div>
                     </div>
                 </div>`

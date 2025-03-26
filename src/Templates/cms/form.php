@@ -16,7 +16,8 @@ $form = $manager->getForm()
     <h2 class="font-bold text-2xl text-primary-800 leading-tight mb-6"><?= _e($manager->getConfig('title')) ?></h2>
 
     <!-- Settings Form START -->
-    <div class="bg-white shadow-lg sm:rounded-lg py-6 px-8 md:py-8 md:px-12 lg:py-10 lg:px-16">
+    <div
+        class="bg-white border border-primary-200 shadow-lg sm:rounded-lg py-6 px-8 md:py-8 md:px-12 lg:py-10 lg:px-16">
         <form action="<?= request_url() ?>" method="post" enctype="multipart/form-data">
             <?php $section = $manager->getCurrentSection() ?>
             <div class="mb-6">
@@ -34,7 +35,7 @@ $form = $manager->getForm()
             } ?>
             <?= csrf() ?>
             <button type="submit"
-                class="px-6 py-3 font-medium w-full mt-4 tracking-wide text-white transition-colors duration-300 transform bg-accent-600 shadow shadow-accent-200 rounded-lg hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80"><?= _e(__('save settings')) ?></button>
+                class="px-6 py-3 font-medium w-full mt-4 tracking-wide text-white transition-colors duration-300 transform bg-accent-600 shadow-sm shadow-accent-200 rounded-lg hover:bg-accent-500 focus:outline-hidden focus:ring-3 focus:ring-accent-300/80"><?= _e(__('save settings')) ?></button>
         </form>
     </div> <!-- Settings Form END -->
 </div>

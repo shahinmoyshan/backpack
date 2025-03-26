@@ -1,4 +1,4 @@
-<div class="bg-white shadow-lg w-full sm:rounded-lg">
+<div class="bg-white border border-primary-200 shadow-lg w-full sm:rounded-lg">
     <?php
     // Generate input fields from model
     $details = collect(\Backpack\Lib\InputGenerator::generate($bread->getModel(), false))
@@ -16,7 +16,7 @@
     }
     ?>
     <?php foreach ($details->all() as $item): ?>
-        <div class="border-t py-4 px-8 firs:border-0 flex flex-col gap-1">
+        <div class="border-t border-primary-200 py-4 px-8 first:border-0 flex flex-col gap-1">
             <!-- Render label -->
             <h3 class="font-bold text-primary-800">
                 <?= _e(__(strtolower(pretty_text($item['label'] ?? $item['name'])))) ?>
@@ -41,7 +41,7 @@
                             HTML;
                         if (in_array($extension, ['png', 'jpg', 'jpeg', 'gif', 'svg'])) {
                             echo <<<HTML
-                                <img src="{$file}" class="max-w-28 max-h-28 md:max-w-36 md:max-h-36 object-contain rounded border p-1 shadow-sm" />
+                                <img src="{$file}" class="max-w-28 max-h-28 md:max-w-36 md:max-h-36 object-contain rounded-sm border border-primary-200 p-1 shadow-xs" />
                             HTML;
                         } else {
                             echo <<<HTML

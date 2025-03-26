@@ -15,10 +15,10 @@ $logs = AdminActivityLog::with('user')
 
 ?>
 
-<div class="bg-white shadow-lg w-full sm:rounded-lg border">
+<div class="bg-white shadow-lg w-full sm:rounded-lg border border-primary-200">
     <?php foreach ($logs as $log): ?>
         <!-- Render History/Logs -->
-        <div class="px-4 py-3 text-sm border-b last:border-b-0 even:bg-primary-50">
+        <div class="px-4 py-3 text-sm border-b last:border-b-0 border-primary-200 even:bg-primary-50">
             <p class="font-medium mb-0.5">
                 <?php
                 if (is_array($log->action)) {

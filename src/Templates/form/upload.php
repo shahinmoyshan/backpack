@@ -41,7 +41,7 @@ $random_id = 'upload-' . uniqid();
 }">
     <!-- File Upload Trigger Button START -->
     <label for="upload_<?= _e($field['id'] ?? $random_id) ?>"
-        class="block relative border text-center font-medium text-primary-600 rounded-lg bg-white hover:bg-primary-50"
+        class="block relative border border-primary-200 text-center font-medium text-primary-600 rounded-lg bg-white hover:bg-primary-50"
         x-on:dragover="$el.classList.add('bg-primary-50')" x-on:drop="$el.classList.remove('bg-primary-50')"
         x-on:dragleave="$el.classList.remove('bg-primary-50')">
         <div class="px-6 py-4">
@@ -71,11 +71,11 @@ $random_id = 'upload-' . uniqid();
     </label> <!-- File Upload Trigger Button END -->
     <!-- File List -->
     <div <?= empty($field['value'] ?? []) ? 'x-cloak x-show="newFiles.length > 0"' : '' ?>
-        class="mt-4 border rounded-lg max-h-48 overflow-y-auto">
+        class="mt-4 border border-primary-200 rounded-lg max-h-48 overflow-y-auto">
         <div>
             <!-- New Files -->
             <template x-for="file in newFiles" :key="file.name">
-                <div class="border-b last:border-b-0 px-4 py-3 hover:bg-primary-50 transition">
+                <div class="border-b border-primary-200 last:border-b-0 px-4 py-3 hover:bg-primary-50 transition">
                     <div class="flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="size-5 mr-2 hidden md:block">
@@ -127,7 +127,7 @@ $random_id = 'upload-' . uniqid();
                     }
                     ?>
                     <div
-                        class="border-t first:border-t-0 px-4 py-3 <?= !$is_private ? 'hover:bg-primary-50 transition' : '' ?>">
+                        class="border-t border-primary-200 first:border-t-0 px-4 py-3 <?= !$is_private ? 'hover:bg-primary-50 transition' : '' ?>">
                         <?php if ($is_private): ?>
                             <div class="flex items-center">
                             <?php else: ?>

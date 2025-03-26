@@ -15,7 +15,7 @@
                 <span class="block text-sm"><?= _e($item->full_name ?? $item->username) ?></span>
                 <?php if ($item->status === 'inactive'): ?>
                     <span
-                        class="bg-red-600 inline-block rounded text-white px-1.5 text-[0.8rem]"><?= __e('inactive') ?></span>
+                        class="bg-red-600 inline-block rounded-sm text-white px-1.5 text-[0.8rem]"><?= __e('inactive') ?></span>
                 <?php endif ?>
             </span>
             <span class="block text-xs text-primary-600"><?= _e($item->email) ?></span>
@@ -25,11 +25,11 @@
 <td class="px-4 py-4">
     <div class="w-max">
         <?php if (isset($item->role?->name)): ?>
-            <span class="block text-xs bg-indigo-600 text-white px-1.5 py-0.5 w-max mb-1 rounded">
+            <span class="block text-xs bg-indigo-600 text-white px-1.5 py-0.5 w-max mb-1 rounded-sm ">
                 <?= _e($item->role->name) ?>
             </span>
         <?php else: ?>
-            <span class="block text-xs bg-primary-200 text-primary-900 px-1.5 py-0.5 w-max mb-1 rounded">
+            <span class="block text-xs bg-primary-200 text-primary-900 px-1.5 py-0.5 w-max mb-1 rounded-sm ">
                 <?= _e(__('no role')) ?>
             </span>
         <?php endif ?>

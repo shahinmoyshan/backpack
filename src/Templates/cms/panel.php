@@ -10,7 +10,7 @@ $form = $manager->getForm()
 ?>
 
 <!-- Render the settings index START -->
-<div class="w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+<div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Settings Form START -->
     <div class="grid grid-cols-8 bg-white shadow-lg rounded-lg overflow-hidden">
         <div class="col-span-2 bg-primary-800 max-h-[85vh] overflow-y-auto">
@@ -38,17 +38,17 @@ $form = $manager->getForm()
                 </a>
             <?php endforeach ?>
         </div>
-        <div class="col-span-6">
+        <div class="col-span-6 border border-primary-200 border-l-0 sm:rounded-r-lg">
             <?php $section = $manager->getCurrentSection(); ?>
             <form action="<?= request_url() ?>" method="post" enctype="multipart/form-data">
                 <?= csrf() ?>
-                <div class="px-6 py-4 flex items-center justify-between border-b">
+                <div class="px-6 py-4 flex items-center justify-between border-b border-primary-300">
                     <div>
                         <h3 class="font-medium text-lg"><?= _e($section['title']) ?></h3>
                         <p class="text-sm text-primary-600"><?= _e($section['description'] ?? '') ?></p>
                     </div>
                     <button
-                        class="px-4 py-2 font-medium text-white transition-colors duration-300 text-sm transform bg-accent-600 rounded hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80"><?= __e('save changes') ?></button>
+                        class="px-4 py-2 font-medium text-white transition-colors duration-300 text-sm transform bg-accent-600 rounded-sm hover:bg-accent-500 focus:outline-hidden focus:ring-3 focus:ring-accent-300/80"><?= __e('save changes') ?></button>
                 </div>
                 <div class="px-8 h-[75vh] overflow-y-auto">
                     <?php foreach ($manager->getFields() as $field) {

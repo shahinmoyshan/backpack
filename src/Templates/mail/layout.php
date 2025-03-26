@@ -122,7 +122,7 @@
             <p>
                 <a href="<?= _e(url('/')) ?>"><?= _e(__('visit our website')) ?></a>
                 <span style="margin: 0 5px;opacity: 0.75;">|</span>
-                <a href="<?= _e(url('/privacy-policy')) ?>"><?= _e(__('privacy policy')) ?></a>
+                <a href="<?= _e(url('/privacy-and-policy')) ?>"><?= _e(__('privacy & policy')) ?></a>
             </p>
         </footer>
     </main>

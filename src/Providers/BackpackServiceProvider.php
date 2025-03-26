@@ -38,12 +38,10 @@ class BackpackServiceProvider
          * Register the Auth service. This service is responsible for
          * authenticating the user and for the user session.
          */
-        $container->singleton(Auth::class, function (Container $container) {
-            return new Auth(
-                session: $container->get(Session::class),
-                userModel: AdminUser::class
-            );
-        });
+        $container->singleton(Auth::class, fn(Container $container) => new Auth(
+            session: $container->get(Session::class),
+            userModel: AdminUser::class
+        ));
 
         /**
          * Register the Settings service. This service is responsible for
@@ -55,22 +53,20 @@ class BackpackServiceProvider
          * Register the PrettyTime service. This service is responsible for
          * formatting time differences into a "pretty" format.
          */
-        $container->singleton(PrettyTime::class, function () {
-            return new PrettyTime([
-                'moments_ago' => __('Moments ago'),
-                'seconds_from_now' => __('Seconds from now'),
-                'minute' => __('minute'),
-                'hour' => __('hour'),
-                'day' => __('day'),
-                'week' => __('week'),
-                'month' => __('month'),
-                'year' => __('year'),
-                'yesterday' => __('Yesterday'),
-                'tomorrow' => __('Tomorrow'),
-                'ago' => __('ago'),
-                'in' => __('In'),
-            ]);
-        });
+        $container->singleton(PrettyTime::class, fn() => new PrettyTime([
+            'moments_ago' => __('Moments ago'),
+            'seconds_from_now' => __('Seconds from now'),
+            'minute' => __('minute'),
+            'hour' => __('hour'),
+            'day' => __('day'),
+            'week' => __('week'),
+            'month' => __('month'),
+            'year' => __('year'),
+            'yesterday' => __('Yesterday'),
+            'tomorrow' => __('Tomorrow'),
+            'ago' => __('ago'),
+            'in' => __('In'),
+        ]));
 
         /**
          * Register the Mailer service. This service is responsible for sending

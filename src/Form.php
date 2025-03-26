@@ -338,12 +338,12 @@ class Form
         if ($timestamp && ($this->hasField('created_at') || $this->hasField('updated_at'))) {
             if (!$this->hasField('id') && $this->hasField('created_at')) {
                 // Set created_at field if not already set
-                $this->merge('created_at', ['value' => date('Y-m-d H:i:s')]);
+                $this->setValue('created_at', date('Y-m-d H:i:s'));
             }
 
             if ($this->hasField('updated_at')) {
                 // Update updated_at field
-                $this->merge('updated_at', ['value' => date('Y-m-d H:i:s')]);
+                $this->setValue('updated_at', date('Y-m-d H:i:s'));
             }
         }
 

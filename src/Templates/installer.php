@@ -8,12 +8,13 @@
 
     <!-- Tailwind Global Style Config -->
     <?= tailwind() ?>
-
-    <!-- Importing Vite Scripts -->
-    <?= panel()->getConfig('vite', '') ?>
 </head>
 
 <body class="relative min-h-screen flex items-center justify-center bg-primary-100">
+
+    <!-- Preloader -->
+    <?= tailwind()->getPreloaderElement() ?>
+
     <div id="app" class="w-full max-h-screen overflow-y-auto max-w-3xl mx-auto bg-white shadow-lg relative"
         x-data="installer">
         <div x-cloak x-show="loading"

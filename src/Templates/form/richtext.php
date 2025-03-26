@@ -157,58 +157,58 @@ $toolbar = $field['attrs']['toolbar'] ?? [];
                         <div class="max-h-96 overflow-y-auto bg-white max-w-sm w-full p-6 sm:rounded-lg shadow-lg">
                             <div class="space-y-2">
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()">
                                     Insert table
                                 </button>
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().addColumnBefore().run()">
                                     Add column before
                                 </button>
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().addColumnAfter().run()">
                                     Add column after
                                 </button>
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().deleteColumn().run()">
                                     Delete column
                                 </button>
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().addRowBefore().run()">
                                     Add row before
                                 </button>
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().addRowAfter().run()">
                                     Add row after
                                 </button>
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().deleteRow().run()">
                                     Delete row
                                 </button>
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().deleteTable().run()">
                                     Delete table
                                 </button>
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().mergeCells().run()">
                                     Merge cells
                                 </button>
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-none"
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-primary-800 transition-colors duration-300 transform rounded-sm  border border-primary-200 hover:bg-primary-100 hover:text-primary-900 focus:outline-hidden"
                                     x-on:click="editor().chain().focus().splitCell().run()">
                                     Split cell
                                 </button>
-                                <hr>
+                                <hr class="text-primary-200">
                                 <button type="button"
-                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"><?= __e('Close') ?></button>
+                                    class="w-full px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-sm shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80"><?= __e('Close') ?></button>
                             </div>
                         </div>
                     </div>
@@ -258,13 +258,13 @@ $toolbar = $field['attrs']['toolbar'] ?? [];
                             <label>
                                 <h3 class="font-medium mb-2"><?= __e('Source Code') ?></h3>
                                 <textarea rows="5" x-model="html"
-                                    class="w-full p-3 border border-primary-300 rounded shadow-sm focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50"></textarea>
+                                    class="w-full p-3 border border-primary-300 rounded-sm  shadow-xs focus:border-accent-300 focus:ring-3 focus:ring-accent-200/50"></textarea>
                             </label>
                             <div class="mt-6 flex gap-2 items-center">
                                 <button type="button" x-on:click="addSource(html), modal = false, html = ''"
-                                    class="px-4 py-2 text-sm font-medium text-white transition-colors duration-300 transform bg-accent-600 rounded-md hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80"><?= __e('Insert') ?></button>
+                                    class="px-4 py-2 text-sm font-medium text-white transition-colors duration-300 transform bg-accent-600 rounded-md hover:bg-accent-500 focus:outline-hidden focus:ring-3 focus:ring-accent-300/80"><?= __e('Insert') ?></button>
                                 <button type="button" x-on:click="modal = false"
-                                    class="px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"><?= __e('Close') ?></button>
+                                    class="px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-sm shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80"><?= __e('Close') ?></button>
                             </div>
                         </div>
                     </div>
@@ -359,7 +359,7 @@ $toolbar = $field['attrs']['toolbar'] ?? [];
                 this.ai_assistance = false;
             }
         }" class="fixed inset-0 z-50 overflow-y-auto w-full h-full bg-black/30 flex items-center justify-center">
-            <div class="w-full max-w-lg max-h-full overflow-y-auto p-8 bg-white rounded-lg shadow"
+            <div class="w-full max-w-lg max-h-full overflow-y-auto p-8 bg-white rounded-lg shadow-xs"
                 x-on:click.away="closePrompt()" x-on:keydown.escape.window="closePrompt()">
                 <div class="text-center mb-6">
                     <span class="mb-0.5 inline-block bg-accent-600 text-white p-3 rounded-full">
@@ -374,7 +374,7 @@ $toolbar = $field['attrs']['toolbar'] ?? [];
 
                 <div x-show="hasApiKey && !isLoading && !errorMessage">
                     <textarea x-ref="commandPrompt"
-                        class="block w-full p-3 px-4 border-primary-300 rounded-lg shadow-sm focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50"
+                        class="block w-full p-3 px-4 border-primary-300 rounded-lg shadow-xs focus:border-accent-300 focus:ring-3 focus:ring-accent-200/50"
                         rows="6" placeholder="<?= __e('enter a prompt') ?>"></textarea>
 
                     <div class="mt-5 flex items-center justify-center gap-3">
@@ -400,13 +400,13 @@ $toolbar = $field['attrs']['toolbar'] ?? [];
                         <label>
                             <span class="text-sm font-medium"><?= _e('Enter Gemini Api Key') ?></span>
                             <input type="text" x-model="apiKey"
-                                class="block w-full px-4 py-2 mt-1 border-primary-300 rounded shadow-sm focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50">
+                                class="block w-full px-4 py-2 mt-1 border-primary-300 rounded-sm  shadow-xs focus:border-accent-300 focus:ring-3 focus:ring-accent-200/50">
                         </label>
                         <a class="inline-block mt-0.5 text-xs text-primary-600"
                             href="https://aistudio.google.com/app/apikey"
                             target="_blank"><?= __e('Click here to get api key') ?></a>
                         <button type="button" x-on:click="connectGeminiApi()"
-                            class="block w-full mt-4 text-center text-white bg-accent-700 hover:bg-accent-800 focus:ring-4 focus:ring-accent-300 font-medium rounded text-sm px-5 py-2.5"><?= __e('Connect') ?></button>
+                            class="block w-full mt-4 text-center text-white bg-accent-700 hover:bg-accent-800 focus:ring-4 focus:ring-accent-300 font-medium rounded-sm  text-sm px-5 py-2.5"><?= __e('Connect') ?></button>
                     </div>
                 </div>
 

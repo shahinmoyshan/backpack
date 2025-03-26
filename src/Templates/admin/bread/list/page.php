@@ -2,7 +2,7 @@
     <div class="flex w-max items-center gap-2 md:gap-3">
         <a href="<?= _e(route_url('admin.cms.pages') . '/' . $item->id . '/edit') ?>">
             <?php if (!empty($item->thumbnail)): ?>
-                <img src="<?= media_url($item->thumbnail[1]) ?>" class="w-12 h-12 rounded" alt="user avatar">
+                <img src="<?= media_url($item->thumbnail[1]) ?>" class="w-12 h-12 rounded-sm" alt="user avatar">
             <?php else: ?>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-12 text-primary-600">
@@ -16,7 +16,7 @@
                 <span class="block text-sm font-medium"><?= _e($item->title) ?></span>
                 <?php if ($item->status === 'draft'): ?>
                     <span
-                        class="bg-primary-600 inline-block rounded text-white px-1.5 text-[0.8rem]"><?= __e('draft') ?></span>
+                        class="bg-primary-600 inline-block rounded-sm text-white px-1.5 text-[0.8rem]"><?= __e('draft') ?></span>
                 <?php endif ?>
             </p>
             <a href="<?= _e(url($item->slug)) ?>"

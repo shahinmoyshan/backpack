@@ -136,11 +136,11 @@ if (!empty($objects)):
             <?= csrf() ?>
             <input type="hidden" name="delete" value="<?= $bread->getRequest()->query('ids', '') ?>">
             <button
-                class="px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-red-600 shadow shadow-red-200 rounded-lg hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80"
+                class="px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-red-600 shadow-sm shadow-red-200 rounded-lg hover:bg-red-500 focus:outline-hidden focus:ring-3 focus:ring-red-300/80"
                 type="submit">
                 <?= __('yes, i am sure') ?>
             </button>
-            <a class="text-center md:text-left px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"
+            <a class="text-center md:text-left px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-sm shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80"
                 href="<?= _e(route_url($bread->getConfig('route'))) ?>">
                 <?= __('cancel') ?>
             </a>
@@ -150,7 +150,7 @@ if (!empty($objects)):
 <?php else: ?>
     <!-- Nothing to delete -->
     <h3 class="mb-6 text-primary-600"><?= _e(__('nothing to delete')) ?></h3>
-    <a class="inline-block text-center md:text-left px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"
+    <a class="inline-block text-center md:text-left px-4 py-2.5 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-sm shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80"
         href="<?= _e(route_url($bread->getConfig('route'))) ?>">
         <?= __('go back') ?>
     </a>

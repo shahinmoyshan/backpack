@@ -21,7 +21,7 @@ $post_type ??= 'page';
 <div class="grid md:grid-cols-6 gap-6">
 
     <div class="md:col-span-4">
-        <div class="bg-white shadow sm:rounded-lg p-6 mb-6">
+        <div class="bg-white border border-primary-200 shadow-xs sm:rounded-lg p-6 mb-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div><?= $form->renderField('title') ?></div>
                 <div><?= $form->renderField('slug') ?></div>
@@ -30,12 +30,12 @@ $post_type ??= 'page';
                 </div>
             </div>
         </div>
-        <div><?= $form->renderField('content') ?></div>
+        <div class="shadow-xs"><?= $form->renderField('content') ?></div>
     </div>
 
     <div class="md:col-span-2">
         <?php if ($form->hasField('id')): ?>
-            <div class="bg-white shadow sm:rounded-lg p-6 mb-6">
+            <div class="bg-white border border-primary-200 shadow-xs sm:rounded-lg p-6 mb-6">
                 <p class="text-[0.9rem]">
                     <span class="font-medium"><?= __('created at') ?></span>
                     <br>
@@ -47,7 +47,7 @@ $post_type ??= 'page';
                 </p>
             </div>
         <?php endif ?>
-        <div class="bg-white shadow sm:rounded-lg p-6 mb-6">
+        <div class="bg-white border border-primary-200 shadow-xs sm:rounded-lg p-6 mb-6">
             <?php if ($post_type === 'blog'): ?>
                 <?php if ($form->hasField('id')): ?>
                     <input type="hidden" name="users_id" value="<?= _e($form->getValue('users_id')) ?>">
@@ -62,12 +62,12 @@ $post_type ??= 'page';
                 <?= $form->renderField('status') ?>
             </div>
         </div>
-        <div class="bg-white shadow sm:rounded-lg" x-data="{
+        <div class="bg-white border border-primary-200 shadow-xs sm:rounded-lg" x-data="{
             /** time: <?= _e(microtime()) ?> */
             expanded: <?= _e(!empty($seo_settings) ? 'true' : 'false') ?>,
             seo: <?= _e(json_encode($seo_settings, JSON_FORCE_OBJECT)) ?>
         }">
-            <div class="flex items-center justify-between py-5 px-6 cursor-pointer border-b"
+            <div class="flex items-center justify-between py-5 px-6 cursor-pointer border-b border-primary-200"
                 x-on:click="expanded = !expanded">
                 <h3 class="font-semibold"><?= __e('seo settings') ?></h3>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

@@ -31,7 +31,7 @@ $byteConverter = function ($bytes) {
         <div class="flex items-center gap-3">
             <div x-data="{ showFolderForm: false, /** time: <?= _e(microtime()) ?> */ }">
                 <button type="button" x-on:click="showFolderForm=true"
-                    class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold flex items-center gap-2 py-2 px-4 rounded">
+                    class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold flex items-center gap-2 py-2 px-4 rounded-sm ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -48,12 +48,12 @@ $byteConverter = function ($bytes) {
                         <input type="hidden" name="__redirect" value="<?= _e(request_url()) ?>">
                         <h3 class="text-lg font-semibold mb-2"><?= _e(__('Create New Folder')) ?></h3>
                         <input type="text" name="new_folder"
-                            class="w-full border-primary-300 focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50 rounded-md">
+                            class="w-full border-primary-300 focus:border-accent-300 focus:ring-3 focus:ring-accent-200/50 rounded-md">
                         <div class="mt-6 flex gap-2 items-center">
                             <button type="submit"
-                                class="px-4 py-2 text-sm font-medium text-white transition-colors duration-300 transform bg-accent-600 rounded-md hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80"><?= _e(__('Create Folder')) ?></button>
+                                class="px-4 py-2 text-sm font-medium text-white transition-colors duration-300 transform bg-accent-600 rounded-md hover:bg-accent-500 focus:outline-hidden focus:ring-3 focus:ring-accent-300/80"><?= _e(__('Create Folder')) ?></button>
                             <button type="button" x-on:click="showFolderForm=false"
-                                class="px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80"><?= _e(__('cancel')) ?></button>
+                                class="px-4 py-2 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-sm shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80"><?= _e(__('cancel')) ?></button>
                         </div>
                     </form>
                 </div>
@@ -64,7 +64,7 @@ $byteConverter = function ($bytes) {
                     x-on:change="$fire.formSubmit($refs.filesUploadForm)" style="display:none;">
                 <input type="hidden" name="__redirect" value="<?= _e(request_url()) ?>">
                 <button type="button" x-on:click="$refs.filesUploadInput.click()"
-                    class="bg-accent-600 hover:bg-accent-500 text-white text-sm font-semibold flex items-center gap-2 py-2 px-4 rounded">
+                    class="bg-accent-600 hover:bg-accent-500 text-white text-sm font-semibold flex items-center gap-2 py-2 px-4 rounded-sm ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -95,7 +95,7 @@ $byteConverter = function ($bytes) {
     <?php endif ?>
 
     <!-- Files & Folders Table START -->
-    <table class="w-full bg-white shadow-lg rounded-sm" x-data="{
+    <table class="w-full bg-white shadow-lg rounded-xs" x-data="{
         deleteResource(name) {
             if (!confirm('<?= __e('are you sure') ?>')) {
                 return ;
@@ -116,7 +116,7 @@ $byteConverter = function ($bytes) {
         </thead>
         <tbody>
             <?php foreach ($files as $file): ?>
-                <tr class="border-t hover:bg-primary-50">
+                <tr class="border-t border-primary-200 hover:bg-primary-50">
                     <td class="px-6 py-3">
                         <?php if ($file['type'] === 'dir'): ?>
                             <a href="<?= _e(request_url() . '/' . $file['name']) ?>">
@@ -130,7 +130,7 @@ $byteConverter = function ($bytes) {
                             <a href="<?= _e($file['url']) ?>" target="_blank">
                                 <?php if (in_array($file['extension'], ['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp', 'ico'])): ?>
                                     <img src="<?= _e($file['url']) ?>"
-                                        class="max-h-10 object-contain rounded border p-0.5 shadow-sm" />
+                                        class="max-h-10 object-contain rounded-sm border border-primary-200 p-0.5 shadow-xs" />
                                 <?php else: ?>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                         class="size-8 text-primary-500/90">
@@ -197,7 +197,7 @@ $byteConverter = function ($bytes) {
             <?php endforeach ?>
             <?php if (empty($files)): ?>
                 <tr>
-                    <td colspan="6" class="px-6 py-8 border-t">
+                    <td colspan="6" class="px-6 py-8 border-t border-primary-200">
                         <div class="text-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" class="size-11 mx-auto text-primary-400 mb-1.5">

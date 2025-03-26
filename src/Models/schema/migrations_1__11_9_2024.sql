@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS password_reset_links (
     id INT PRIMARY KEY AUTO_INCREMENT,
     target_id INT NOT NULL,
     target_type VARCHAR(100) NOT NULL,
-    token VARCHAR(100) NOT NULL,
+    token VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     KEY target_id (target_id),
     KEY target_type (target_type),

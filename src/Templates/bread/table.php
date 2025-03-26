@@ -35,7 +35,7 @@ if (!function_exists('parse_anchor_url')) {
                         continue;
                     } ?>
                     <a href="<?= _e($button['url']) ?>"
-                        class="px-4 py-2 flex items-center gap-1 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80">
+                        class="px-4 py-2 flex items-center gap-1 text-sm font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-sm shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80">
                         <?= $button['icon'] ?? '' ?>
                         <span><?= _e($button['title']) ?></span>
                     </a>
@@ -43,7 +43,7 @@ if (!function_exists('parse_anchor_url')) {
             <?php endif ?>
             <?php if (!isset($bread->getConfig('permissions', [])['create']) || has_permission($bread->getConfig('permissions', [])['create'])): ?>
                 <a href="<?= route_url($bread->getConfig('route')) . '/create' ?>"
-                    class="px-4 py-2 flex text-sm items-center gap-1 font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-600 shadow shadow-accent-200 rounded-lg hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80">
+                    class="px-4 py-2 flex text-sm items-center gap-1 font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-600 shadow-sm shadow-accent-200 rounded-lg hover:bg-accent-500 focus:outline-hidden focus:ring-3 focus:ring-accent-300/80">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -77,10 +77,10 @@ if (!function_exists('parse_anchor_url')) {
                 $fire.navigate(actionUrl);
             }
         }
-    }" <?php endif ?> class="bg-white shadow-lg sm:rounded-lg">
+    }" <?php endif ?> class="bg-white border border-primary-200 shadow-lg sm:rounded-lg">
         <!-- Bread Header Part START -->
         <div
-            class="bg-primary-50 flex flex-col md:flex-row gap-y-3 items-start md:items-center justify-between px-4 py-3 border-b">
+            class="bg-primary-50 sm:rounded-t-lg flex flex-col md:flex-row gap-y-3 items-start md:items-center justify-between px-4 py-3 border-b border-primary-300">
             <div class="flex items-center gap-2.5">
                 <?php if (!empty($bread->getConfig('bulk_actions')) && empty($bread->getConfig('columns'))): ?>
                     <input x-cloak x-show="total_items" x-on:click="toggleAllItems()"
@@ -90,7 +90,7 @@ if (!function_exists('parse_anchor_url')) {
                 <?php if (!empty($bread->getConfig('sort'))): ?>
                     <select
                         x-on:change="$fire.navigate('<?= _e(parse_anchor_url($bread->getRequest(), 'sortColumn', 'sortColumn')) ?>'.replace('sortColumn=sortColumn', `sortColumn=${$event.target.value}`))"
-                        class="rounded-md text-sm py-1.5 shadow-sm focus:border-accent-300 border-primary-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50">
+                        class="rounded-md text-sm py-1.5 shadow-xs focus:border-accent-300 border-primary-300 focus:ring-3 focus:ring-accent-200/50">
                         <option value=""><?= _e(__('sort by -')) ?></option>
                         <?php foreach ($bread->config['sort'] as $sortColumn => $sortTitle): ?>
                             <option <?= $bread->getRequest()->query('sortColumn', '') === $sortColumn ? 'selected' : '' ?>
@@ -102,7 +102,7 @@ if (!function_exists('parse_anchor_url')) {
                     <?php $sortDirection = $bread->getRequest()->query('sortDirection', 'asc') ?>
                     <select
                         x-on:change="$fire.navigate('<?= _e(parse_anchor_url($bread->getRequest(), 'sortDirection', 'sortDirection')) ?>'.replace('sortDirection=sortDirection', `sortDirection=${$event.target.value}`))"
-                        class="rounded-md text-sm py-1.5 shadow-sm focus:border-accent-300 border-primary-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50">
+                        class="rounded-md text-sm py-1.5 shadow-xs focus:border-accent-300 border-primary-300 focus:ring-3 focus:ring-accent-200/50">
                         <option <?= _e($sortDirection === 'asc' ? 'selected' : '') ?> value="asc">
                             <?= _e(__('ascending')) ?>
                         </option>
@@ -126,7 +126,7 @@ if (!function_exists('parse_anchor_url')) {
                     ?>
                     <select
                         x-on:change="$fire.navigate('<?= _e(parse_anchor_url($bread->getRequest(), 'filter', 'filter')) ?>'.replace('filter=filter', `filter=${$event.target.value}`))"
-                        class="rounded-md text-[0.8rem] py-1 shadow-sm focus:border-accent-300 border-primary-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50">
+                        class="rounded-md text-[0.8rem] py-1 shadow-xs focus:border-accent-300 border-primary-300 focus:ring-3 focus:ring-accent-200/50">
                         <option value=""><?= _e(__('filter by -')) ?></option>
                         <?php foreach ($filters as $group => $filterItems): ?>
                             <?php if (!empty($group)): ?>
@@ -154,7 +154,7 @@ if (!function_exists('parse_anchor_url')) {
                         <input
                             x-on:input.debounce.500ms="$fire.navigate('<?= _e(parse_anchor_url($bread->getRequest(), 'q', 'qq')) ?>'.replace('q=qq', `q=${$event.target.value}`))"
                             type="text" value="<?= _e($bread->getRequest()->query('q', '')) ?>"
-                            class="w-48 py-1.5 text-sm pl-8 pr-4 text-primary-800 bg-white border border-primary-300 rounded-md focus:border-accent-300 focus:outline-none focus:ring focus:ring-accent-200 focus:ring-opacity-50"
+                            class="w-48 py-1.5 text-sm pl-8 pr-4 text-primary-800 bg-white border border-primary-300 rounded-md focus:border-accent-300 focus:outline-hidden focus:ring-3 focus:ring-accent-200/50"
                             placeholder="<?= _e(__('search')) ?>">
                     </div>
                 <?php endif ?>
@@ -162,10 +162,11 @@ if (!function_exists('parse_anchor_url')) {
         </div> <!-- Bread Header Part END -->
         <!-- Bread Bulk Actions START -->
         <?php if (!empty($bread->getConfig('bulk_actions'))): ?>
-            <div x-cloak x-show="checked.length" class="bg-primary-50 px-4 py-3 border-b flex justify-between items-center"
+            <div x-cloak x-show="checked.length"
+                class="bg-primary-50 px-4 py-3 border-b border-primary-300 flex justify-between items-center"
                 x-data="{msg_singular: '<?= _e(__('%s record selected', ' ')) ?>', msg_plural: '<?= _e(__('%s records selected', ' ')) ?>'}">
                 <select x-on:change="applyBulkAction($el.value)"
-                    class="rounded-md text-[0.8rem] py-0.5 shadow-sm focus:border-accent-300 border-primary-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50">
+                    class="rounded-md text-[0.8rem] py-0.5 shadow-xs focus:border-accent-300 border-primary-300 focus:ring-3 focus:ring-accent-200/50">
                     <option><?= _e(__('bulk actions -')) ?></option>
                     <?php foreach ($bread->getConfig('bulk_actions') as $action => $actionSetting): ?>
                         <?php if (isset($actionSetting['when']) && !call_user_func($actionSetting['when'])) {
@@ -184,7 +185,7 @@ if (!function_exists('parse_anchor_url')) {
                 <?php if (!empty($bread->getConfig('columns'))):
                     $columnsWidth = $bread->getConfig('columns_width', []); ?>
                     <thead>
-                        <tr class="bg-primary-50 border-b">
+                        <tr class="bg-primary-50 border-b border-primary-300">
                             <?php if (!empty($bread->getConfig('bulk_actions'))): ?>
                                 <th width="<?= _e($columnsWidth['checkbox'] ?? '') ?>" class="text-left px-4 py-3 font-medium">
                                     <input x-on:click="toggleAllItems()" title="<?= _e(__('select/unselect all')) ?>"
@@ -216,7 +217,7 @@ if (!function_exists('parse_anchor_url')) {
             })" <?php endif ?>>
                     <?php foreach ($bread->getPaginator()->getData() as $key => $item): ?>
                         <tr
-                            :class="checked.includes('<?= _e($item->id) ?>') ? 'bg-primary-50 border-l-2 border-l-accent-600 border-t first:border-t-0 hover:bg-primary-50 group' : 'border-t first:border-t-0 hover:bg-primary-50 group'">
+                            :class="checked.includes('<?= _e($item->id) ?>') ? 'bg-primary-50 border-l-2 border-l-accent-600 border-t first:border-t-0 hover:bg-primary-50 group border-primary-200' : 'border-t first:border-t-0 hover:bg-primary-50 group border-primary-200'">
                             <?php if (!empty($bread->getConfig('bulk_actions'))): ?>
                                 <td class="py-4 px-4" width="1%">
                                     <input :checked="checked.includes('<?= _e($item->id) ?>')" value="<?= _e($item->id) ?>"
@@ -286,7 +287,7 @@ if (!function_exists('parse_anchor_url')) {
                                                     <span><?= _e($actionSetting['title'] ?? '') ?></span>
                                                 </a>
                                                 <?php if (!empty($tooltip)): ?>
-                                                    <div class="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-10 flex w-max max-w-48 flex-col gap-1 rounded bg-primary-800 px-2 py-1.5 text-[0.8rem] text-primary-50 opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100"
+                                                    <div class="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-10 flex w-max max-w-48 flex-col gap-1 rounded-sm bg-primary-800 px-2 py-1.5 text-[0.8rem] text-primary-50 opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100"
                                                         role="tooltip"><?= _e($tooltip) ?></div>
                                                 <?php endif ?>
                                             </div>
@@ -299,7 +300,8 @@ if (!function_exists('parse_anchor_url')) {
                 </tbody>
             </table> <!-- Bread Table Part END -->
             <!-- Bread Footer Part START -->
-            <div class="bg-primary-50 flex items-center justify-center md:justify-between px-4 py-3 border-t">
+            <div
+                class="bg-primary-50 sm:rounded-b-lg flex items-center justify-center md:justify-between px-4 py-3 border-t border-primary-300">
                 <p class="text-sm text-primary-800 w-4/12 hidden md:block">
                     <?php
                     $start = ($bread->getPaginator()->getPage() - 1) * $bread->getPaginator()->limit + 1;
@@ -320,7 +322,7 @@ if (!function_exists('parse_anchor_url')) {
                     ?>
                     <select
                         x-on:change="$fire.navigate('<?= _e(parse_anchor_url($bread->getRequest(), 'perPage', 'perPage')) ?>'.replace('perPage=perPage', `perPage=${$event.target.value}`))"
-                        class="rounded-md text-[0.8rem] py-0.5 shadow-sm border-primary-300 focus:border-accent-300 focus:ring focus:ring-accent-200 focus:ring-opacity-50">
+                        class="rounded-md text-[0.8rem] py-0.5 shadow-xs border-primary-300 focus:border-accent-300 focus:ring-3 focus:ring-accent-200/50">
                         <option value=""><?= _e(__('per page')) ?></option>
                         <?php foreach ([25, 50, 100, 500] as $count): ?>
                             <option <?= $perPage == $count ? 'selected' : '' ?> value="<?= _e($count) ?>">
@@ -349,7 +351,7 @@ if (!function_exists('parse_anchor_url')) {
                         ]
                     );
 
-                    $links = str_ireplace(['{anchor_class} {active_class}', '{anchor_class}'], ['bg-accent-600 text-white', 'bg-primary-50 hover:bg-primary-100 hover:text-primary-900'], $links);
+                    $links = str_ireplace(['{anchor_class} {active_class}', '{anchor_class}'], ['bg-accent-600 border-accent-600 text-white', 'bg-primary-50 hover:bg-primary-100 border-primary-200 hover:text-primary-900'], $links);
                     echo $links;
                     ?>
                 </div>

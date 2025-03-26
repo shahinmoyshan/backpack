@@ -13,7 +13,7 @@ $template->layout('master')
     <h2 class="font-bold text-2xl text-primary-800 leading-tight mb-6"><?= _e(__('Profile Settings')) ?></h2>
 
     <!-- Profile Settings Card START -->
-    <div class="bg-white shadow-lg sm:rounded-lg py-10 px-16">
+    <div class="bg-white border border-primary-200 shadow-lg sm:rounded-lg py-10 px-16">
         <div class="flex flex-col-reverse items-center md:items-start md:flex-row gap-16 md:gap-20">
             <!-- Profile Settings Form START -->
             <div class="w-full md:w-8/12 max-w-lg">
@@ -23,14 +23,14 @@ $template->layout('master')
                     <div class="mb-4">
                         <label for="name" class="block mb-2"><?= _e(__('full name')) ?></label>
                         <input type="text" id="name" name="full_name" value="<?= _e(user('full_name', '')) ?>"
-                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300">
+                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:outline-hidden focus:ring-3 focus:ring-accent-300/40">
                     </div>
 
                     <!-- Update Profile Email Field -->
                     <div class="mb-6">
                         <label for="email" class="block mb-2"><?= _e(__('email address')) ?></label>
                         <input type="email" id="email" name="email" value="<?= _e(user('email', '')) ?>"
-                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300">
+                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:outline-hidden focus:ring-3 focus:ring-accent-300/40">
                     </div>
 
                     <!-- Change Password START-->
@@ -39,20 +39,20 @@ $template->layout('master')
                             class="block mb-2 font-medium"><?= _e(__('change password')) ?></label>
                         <input type="password" id="old_password" name="old_password"
                             placeholder="<?= _e(__('old password')) ?>"
-                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300">
+                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:outline-hidden focus:ring-3 focus:ring-accent-300/40">
                     </div>
                     <div class="mb-6 flex flex-col md:flex-row gap-4">
                         <!-- New Password -->
                         <input type="password" name="new_password" placeholder="<?= _e(__('new password')) ?>"
-                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300">
+                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:outline-hidden focus:ring-3 focus:ring-accent-300/40">
                         <!-- Confirm Password -->
                         <input type="password" name="confirm_password" placeholder="<?= _e(__('confirm password')) ?>"
-                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-accent-300">
+                            class="block w-full px-6 py-3 text-primary-900 placeholder-primary-700 bg-white border border-primary-300 rounded-lg focus:border-accent-300 focus:outline-hidden focus:ring-3 focus:ring-accent-300/40">
                     </div> <!-- Change Password END-->
 
                     <!-- Save Changes Button -->
                     <button
-                        class="px-6 py-3 w-full font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-600 shadow shadow-accent-200 rounded-lg hover:bg-accent-500 focus:outline-none focus:ring focus:ring-accent-300 focus:ring-opacity-80">
+                        class="px-6 py-3 w-full font-medium tracking-wide text-white transition-colors duration-300 transform bg-accent-600 shadow-sm shadow-accent-200 rounded-lg hover:bg-accent-500 focus:outline-hidden focus:ring-3 focus:ring-accent-300/80">
                         <?= _e(__('save')) ?>
                     </button>
                 </form>
@@ -87,7 +87,7 @@ $template->layout('master')
 
                     <!-- Upload a Picture button -->
                     <button type="button" x-on:click="$refs.profilePictureInput.click()"
-                        class="px-6 py-3 w-full font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-none focus:ring focus:ring-primary-300 focus:ring-opacity-80">
+                        class="px-6 py-3 w-full font-medium tracking-wide text-white transition-colors duration-300 transform bg-primary-700 shadow-sm shadow-primary-200 rounded-lg hover:bg-primary-800 focus:outline-hidden focus:ring-3 focus:ring-primary-300/80">
                         <?= _e(__('upload a picture')) ?>
                     </button>
                 </form>

@@ -3,7 +3,7 @@
     <template x-for="(menuItem, index) in menuItems" :key="index + '_' + menuItem.id">
         <div>
             <div :data-id="menuItem.id" :style="menuItem.parent && 'margin-left: 40px;'"
-                class="flex items-center justify-between border rounded px-4 py-3 border-primary-300/75 hover:border-primary-300 hover:bg-primary-50/45 transition mb-3">
+                class="flex items-center justify-between border rounded-sm px-4 py-3 border-primary-300/75 hover:border-primary-300 hover:bg-primary-50/45 transition mb-3">
                 <div class="flex items-center gap-2">
                     <button handle class="cursor-grab">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
