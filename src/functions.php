@@ -127,15 +127,14 @@ function backpack_template(string $template, array $context = []): Response
         $engine = get(Template::class)
             ->setPath(backpack_templates_dir());
 
-        // Render the template and get the rendered HTML and title
-        $html = $engine->render($template, $context);
-        $title = $engine->getContext()['title'] ?? null;
-
         // Return a JSON response with the rendered HTML and title
         return response()->json([
-            'html' => $html,
-            'title' => $title,
-        ]);
+            'html' =>  $engine->render($template, $context),
+            'title' => $engine->get('title'),
+        ])
+            ->setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->setHeader('Pragma', 'no-cache')
+            ->setHeader('Expires', '0');
     }
 
     // Otherwise, return a regular HTTP response with the rendered HTML
