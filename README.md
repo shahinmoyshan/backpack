@@ -1,23 +1,11 @@
-# BackPack
-HyperPhp Backend Admin Panel Builder
+# Repository Moved
 
-# Installation
-It's recommended that you use [Composer](https://getcomposer.org/) to install this Backpack Kit.
+🚨 **This repository has been moved!** 🚨
 
-```bash
-$ composer require vulcanphp/backpack
-```
+The contents of this repository are now maintained at:
 
-Then Register the Backpack Service Provider:
-```php
-<?php
-# bootstrap/providers.php
+👉 [https://github.com/tinymvc/tinypack](https://github.com/tinymvc/tinypack)
 
-return [
-    // Application service provider for registering and bootstrapping services
-    \Backpack\Providers\BackpackServiceProvider::class,
-];
+Please update your bookmarks and visit the new repository for the latest updates, issues, and contributions.
 
-```
-
-## Complete Doc is Coming Soon...
+Thank you for your support!
